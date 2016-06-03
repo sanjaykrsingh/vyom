@@ -3,18 +3,12 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 29, 2016 at 05:28 AM
+-- Generation Time: Jun 03, 2016 at 10:00 AM
 -- Server version: 5.5.49-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `vyom`
@@ -138,6 +132,12 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 ('/city/index', 2, NULL, NULL, NULL, 1464087985, 1464087985),
 ('/city/update', 2, NULL, NULL, NULL, 1464087985, 1464087985),
 ('/city/view', 2, NULL, NULL, NULL, 1464087985, 1464087985),
+('/customer/*', 2, NULL, NULL, NULL, 1464920579, 1464920579),
+('/customer/create', 2, NULL, NULL, NULL, 1464920579, 1464920579),
+('/customer/delete', 2, NULL, NULL, NULL, 1464920579, 1464920579),
+('/customer/index', 2, NULL, NULL, NULL, 1464920578, 1464920578),
+('/customer/update', 2, NULL, NULL, NULL, 1464920579, 1464920579),
+('/customer/view', 2, NULL, NULL, NULL, 1464920578, 1464920578),
 ('/debug/*', 2, NULL, NULL, NULL, 1450352658, 1450352658),
 ('/debug/default/*', 2, NULL, NULL, NULL, 1450352658, 1450352658),
 ('/debug/default/db-explain', 2, NULL, NULL, NULL, 1450352658, 1450352658),
@@ -192,10 +192,10 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 ('/user/index', 2, NULL, NULL, NULL, 1450352659, 1450352659),
 ('/user/update', 2, NULL, NULL, NULL, 1450352659, 1450352659),
 ('/user/view', 2, NULL, NULL, NULL, 1450352659, 1450352659),
-('Admin', 1, NULL, 'Admin Rule', NULL, 1450352597, 1450352855),
+('Admin', 1, NULL, 'Admin Rule', NULL, 1450352597, 1464687244),
 ('Manager', 1, NULL, 'Manager Rule', NULL, 1450353024, 1450353024),
 ('Seller', 2, NULL, 'Seller Rule', NULL, 1450357350, 1450357350),
-('Super Admin', 2, NULL, 'Super Admin Rule', NULL, 1450353233, 1464479575),
+('Super Admin', 2, NULL, 'Super Admin Rule', NULL, 1450353233, 1464920588),
 ('User Management', 2, NULL, 'Manager Rule', NULL, 1450353082, 1450353325);
 
 -- --------------------------------------------------------
@@ -264,6 +264,12 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('Super Admin', '/city/index'),
 ('Super Admin', '/city/update'),
 ('Super Admin', '/city/view'),
+('Super Admin', '/customer/*'),
+('Super Admin', '/customer/create'),
+('Super Admin', '/customer/delete'),
+('Super Admin', '/customer/index'),
+('Super Admin', '/customer/update'),
+('Super Admin', '/customer/view'),
 ('Manager', '/debug/*'),
 ('Super Admin', '/debug/*'),
 ('User Management', '/debug/*'),
@@ -410,7 +416,10 @@ CREATE TABLE IF NOT EXISTS `city` (
   `id` mediumint(7) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
   `code` varchar(255) NOT NULL DEFAULT '',
+  `description` varchar(2048) DEFAULT NULL,
   `country_name` varchar(255) NOT NULL DEFAULT '',
+  `latitude` varchar(20) DEFAULT NULL,
+  `longitude` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
@@ -418,34 +427,88 @@ CREATE TABLE IF NOT EXISTS `city` (
 -- Dumping data for table `city`
 --
 
-INSERT INTO `city` (`id`, `name`, `code`, `country_name`) VALUES
-(1, 'Kaitaia', 'KAT', ' New Zealand'),
-(2, 'Napier-Hastings', 'NPE', ' New Zealand'),
-(3, 'Nelso', 'NSN', ' New Zealand'),
-(4, 'New', 'NPL', ' New Zealand'),
-(5, 'Palmerston', 'PMR', ' New Zealand'),
-(6, 'Queenstown', 'ZQN', ' New Zealand'),
-(7, 'Rotorua', 'ROT', ' New Zealand'),
-(8, 'Mount', 'MON', ' New Zealand'),
-(9, 'Auckland', 'AKL', ' New Zealand'),
-(10, 'Blenheim', 'BHE', ' New Zealand'),
-(11, 'Chatham', 'CHT', ' New Zealand'),
-(12, 'Christchurch', 'CHC', ' New Zealand'),
-(14, 'Timaru', 'TIU', ' New Zealand'),
-(15, 'Wanaka', 'WKA', ' New Zealand'),
-(16, 'Wanganui', 'WAG', ' New Zealand'),
-(17, 'Wellington', 'WLG', ' New Zealand'),
-(18, 'Westport', 'WSZ', ' New Zealand'),
-(19, 'Whakatane', 'WHK', ' New Zealand'),
-(20, 'Whangarei', 'WRE', ' New Zealand'),
-(21, 'Dunedin', 'DUD', ' New Zealand'),
-(22, 'Gisborne', 'GIS', ' New Zealand'),
-(23, 'Hamilton', 'HLZ', ' New Zealand'),
-(24, 'Hokitika', 'HKK', ' New Zealand'),
-(25, 'Invercargill', 'IVC', ' New Zealand'),
-(26, 'Taupo', 'TUO', ' New Zealand'),
-(27, 'Tauranga', 'TRG', ' New Zealand'),
-(28, '', '', '');
+INSERT INTO `city` (`id`, `name`, `code`, `description`, `country_name`, `latitude`, `longitude`) VALUES
+(1, 'Kaitaia', 'KAT', '', ' New Zealand', '', ''),
+(2, 'Napier-Hastings', 'NPE', NULL, ' New Zealand', NULL, NULL),
+(3, 'Nelso', 'NSN', NULL, ' New Zealand', NULL, NULL),
+(4, 'New', 'NPL', NULL, ' New Zealand', NULL, NULL),
+(5, 'Palmerston', 'PMR', NULL, ' New Zealand', NULL, NULL),
+(6, 'Queenstown', 'ZQN', NULL, ' New Zealand', NULL, NULL),
+(7, 'Rotorua', 'ROT', NULL, ' New Zealand', NULL, NULL),
+(8, 'Mount', 'MON', NULL, ' New Zealand', NULL, NULL),
+(9, 'Auckland', 'AKL', NULL, ' New Zealand', NULL, NULL),
+(10, 'Blenheim', 'BHE', NULL, ' New Zealand', NULL, NULL),
+(11, 'Chatham', 'CHT', NULL, ' New Zealand', NULL, NULL),
+(12, 'Christchurch', 'CHC', NULL, ' New Zealand', NULL, NULL),
+(14, 'Timaru', 'TIU', NULL, ' New Zealand', NULL, NULL),
+(15, 'Wanaka', 'WKA', NULL, ' New Zealand', NULL, NULL),
+(16, 'Wanganui', 'WAG', NULL, ' New Zealand', NULL, NULL),
+(17, 'Wellington', 'WLG', NULL, ' New Zealand', NULL, NULL),
+(18, 'Westport', 'WSZ', NULL, ' New Zealand', NULL, NULL),
+(19, 'Whakatane', 'WHK', NULL, ' New Zealand', NULL, NULL),
+(20, 'Whangarei', 'WRE', NULL, ' New Zealand', NULL, NULL),
+(21, 'Dunedin', 'DUD', '', ' New Zealand', '', ''),
+(22, 'Gisborne', 'GIS', NULL, ' New Zealand', NULL, NULL),
+(23, 'Hamilton', 'HLZ', NULL, ' New Zealand', NULL, NULL),
+(24, 'Hokitika', 'HKK', NULL, ' New Zealand', NULL, NULL),
+(25, 'Invercargill', 'IVC', NULL, ' New Zealand', NULL, NULL),
+(26, 'Taupo', 'TUO', NULL, ' New Zealand', NULL, NULL),
+(27, 'Tauranga', 'TRG', NULL, ' New Zealand', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `country`
+--
+
+CREATE TABLE IF NOT EXISTS `country` (
+  `code` char(2) NOT NULL,
+  `name` char(52) NOT NULL,
+  `population` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `country`
+--
+
+INSERT INTO `country` (`code`, `name`, `population`) VALUES
+('AU', 'Australia', 18886000),
+('BR', 'Brazil', 170115000),
+('CA', 'Canada', 1147000),
+('CN', 'China', 1277558000),
+('DE', 'Germany', 82164700),
+('FR', 'France', 59225700),
+('GB', 'United Kingdom', 59623400),
+('IN', 'India', 1013662000),
+('RU', 'Russia', 146934000),
+('US', 'United States', 278357000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer`
+--
+
+CREATE TABLE IF NOT EXISTS `customer` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `itinerary_id` char(26) NOT NULL,
+  `mobile_no` varchar(12) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `day_description` text,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `itinerary_id` (`itinerary_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`id`, `name`, `itinerary_id`, `mobile_no`, `email`, `day_description`, `created_at`, `updated_at`) VALUES
+(2, 'Sanjay', 'R000001', '999999999', 'sanjay@gmail.com', '{"day1":"sdfsdglkdashlsdg h","day2":"dsk glhl kdfhghjhjkhh","day3":"hhjhjj","day4":"jjjjj","day5":"jjjjj","day6":"jjjj","day7":"jjjjhhjh","day8":"jhjkjbmb,","day9":"jbbmmbb,","day10":"jkbjbbm"}', '2016-06-03 02:13:49', '2016-06-03 02:22:30');
 
 -- --------------------------------------------------------
 
@@ -463,7 +526,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `icon` varchar(255) DEFAULT 'fa fa-circle-o',
   PRIMARY KEY (`id`),
   KEY `parent` (`parent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `menu`
@@ -483,7 +546,8 @@ INSERT INTO `menu` (`id`, `name`, `parent`, `route`, `order`, `data`, `icon`) VA
 (11, 'Restaurants', NULL, '/restaurant/index', 3, NULL, 'fa fa-circle-o'),
 (13, 'Cities', NULL, '/city/index', 2, NULL, 'fa fa-circle-o'),
 (15, 'Services', NULL, '/services/index', 3, NULL, 'fa fa-circle-o'),
-(16, 'Site-Seen', NULL, '/site-seen/index', 4, NULL, 'fa fa-circle-o');
+(16, 'Site-Seen', NULL, '/site-seen/index', 4, NULL, 'fa fa-circle-o'),
+(17, 'Customer', NULL, '/customer/index', 1, NULL, 'fa fa-circle-o');
 
 -- --------------------------------------------------------
 
@@ -537,7 +601,7 @@ CREATE TABLE IF NOT EXISTS `restaurant` (
 --
 
 INSERT INTO `restaurant` (`id`, `city_id`, `type`, `title`, `Description`, `open_time`, `close_time`, `address1`, `address2`, `phone_no1`, `phone_no2`, `latitude`, `longitude`, `created_at`, `updated_at`) VALUES
-(11, 1, 'Pub', 'asdas', 'asdA', '9:00 AM', '9:00 PM', 'ASDA', 'asda', '121312', '12321', '12', '21', '2016-05-26 05:47:40', '2016-05-28 04:53:24'),
+(11, 1, 'Pub', 'asdas', 'asdA', '9:00 AM', '9:00 PM', 'ASDA', 'asda', '121312', '12321', '12', '21', '2016-05-26 05:47:40', '2016-05-31 22:43:26'),
 (15, 1, '', 'asfdas', 'asfads', '', '', 'asfsad', 'safdf', '12321321', '12321', '22', '22', '2016-05-26 08:47:44', '2016-05-26 03:17:44'),
 (21, 1, '', 'asdsa', 'asdas', '', '', 'asdas', 'asdsa', '21321', '12321', '12321', '213213', '2016-05-26 08:56:56', '2016-05-26 03:26:56'),
 (34, 1, '', 'zdfdsfdsfsdf', 'sdfsdaf', '', '', 'sdfdsfsdsd', 'fsddsfds2131212', '76557775', '7575', '5757', '77', '2016-05-28 11:18:28', '2016-05-28 05:48:28'),
@@ -584,7 +648,7 @@ CREATE TABLE IF NOT EXISTS `site_config` (
   `created_at` datetime DEFAULT NULL,
   `modified_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `site_config`
@@ -594,7 +658,8 @@ INSERT INTO `site_config` (`id`, `config_key`, `value`, `label`, `type`, `create
 (1, '_Restaurant_Upload_Path', '/../upload/restaurants/', 'Path for Restaurant image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31'),
 (2, '_Services_Upload_Path', '/../upload/services/', 'Path for Services image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31'),
 (3, '_Upload_Path', '/../upload/', 'Path for Restaurant image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31'),
-(4, '_SiteSeen_Upload_Path', '/../upload/site-seen/', 'Path for site seen image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31');
+(4, '_SiteSeen_Upload_Path', '/../upload/site-seen/', 'Path for site seen image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31'),
+(5, '_City_Upload_Path', '/../upload/city/', 'Path for City image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31');
 
 -- --------------------------------------------------------
 
@@ -637,7 +702,7 @@ INSERT INTO `site_seen` (`id`, `city_id`, `title`, `Description`, `open_time`, `
 CREATE TABLE IF NOT EXISTS `uploaded_file` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `reference_id` int(11) unsigned DEFAULT NULL,
-  `reference_type` enum('Restaurant','Services','SiteSeen') DEFAULT NULL,
+  `reference_type` enum('Restaurant','Services','SiteSeen','City') DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `filename` varchar(255) NOT NULL,
   `size` int(11) unsigned DEFAULT NULL,
@@ -646,7 +711,19 @@ CREATE TABLE IF NOT EXISTS `uploaded_file` (
   `cover_image` tinyint(1) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `uploaded_file`
+--
+
+INSERT INTO `uploaded_file` (`id`, `reference_id`, `reference_type`, `name`, `filename`, `size`, `path`, `type`, `cover_image`, `created_at`) VALUES
+(2, 11, 'Restaurant', 'download (1).jpg', 'download (1)1464754406-big.jpg', 7008, '/../upload/restaurants/download (1)1464754406-big.jpg', 'Big', 1, '2016-06-01 04:13:26'),
+(4, 11, 'Restaurant', 'download (1).jpg', 'download (1)1464754406-small.jpg', 7008, '/../upload/restaurants/download (1)1464754406-small.jpg', 'Small', 0, '2016-06-01 04:13:26'),
+(5, 21, 'City', 'download.jpg', 'download1464923038-big.jpg', 10708, '/../upload/city/download1464923038-big.jpg', 'Big', 1, '2016-06-03 03:03:58'),
+(6, 21, 'City', 'download (1).jpg', 'download (1)1464923038-big.jpg', 7008, '/../upload/city/download (1)1464923038-big.jpg', 'Big', 1, '2016-06-03 03:03:58'),
+(7, 21, 'City', 'download.jpg', 'download1464923038-small.jpg', 10708, '/../upload/city/download1464923038-small.jpg', 'Small', 0, '2016-06-03 03:03:58'),
+(8, 21, 'City', 'download (1).jpg', 'download (1)1464923038-small.jpg', 7008, '/../upload/city/download (1)1464923038-small.jpg', 'Small', 0, '2016-06-03 03:03:58');
 
 -- --------------------------------------------------------
 
@@ -706,7 +783,3 @@ ALTER TABLE `auth_item_child`
 --
 ALTER TABLE `menu`
   ADD CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `menu` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -19,8 +19,8 @@ class UploadForm extends Model {
         return [
             [['imageFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'maxFiles' => 10, 'on' => 'create'],
             [['smallFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'maxFiles' => 10, 'on' => 'create'],
-            [['imageFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'maxFiles' => 10, 'on' => 'update'],
-            [['smallFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg', 'maxFiles' => 10, 'on' => 'update'],
+            [['imageFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg', 'maxFiles' => 10, 'on' => 'update'],
+            [['smallFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg', 'maxFiles' => 10, 'on' => 'update'],
         ];
     }
 
@@ -40,7 +40,7 @@ class UploadForm extends Model {
             
             $path = $this->getUploadPath($reference_type);
             if(empty($path)) return false;
-            
+            //print_r($path);die;
             foreach ($this->imageFiles as $file) {
                 $filename = $file->baseName . time() . '-big.' . $file->extension;
                 $file->saveAs($path['upload_full_path'] . $filename);
@@ -132,7 +132,13 @@ class UploadForm extends Model {
         }elseif (strtolower($reference_type) == 'services') {
             $upload_path = \common\models\SiteConfig::getConfigVal('_Services_Upload_Path');
             $upload_full_path = \Yii::$app->basePath . $upload_path;
-        }else{
+        }elseif (strtolower($reference_type) == 'city') {
+            $upload_path = \common\models\SiteConfig::getConfigVal('_City_Upload_Path');
+            $upload_full_path = \Yii::$app->basePath . $upload_path;
+        }
+        
+        
+        if(empty($upload_path ) && empty($upload_full_path)){
             $upload_path = \common\models\SiteConfig::getConfigVal('_Upload_Path');
             $upload_full_path = \Yii::$app->basePath . $upload_path;
         }

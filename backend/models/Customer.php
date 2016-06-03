@@ -55,14 +55,14 @@ class Customer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'itinerary_id', 'mobile_no'], 'required'],
-            [['day_description'], 'string'],
+            [['name', 'itinerary_id', 'mobile_no','email'], 'required'],
+            [['day_description'], 'safe'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'email'], 'string', 'max' => 100],
             [['itinerary_id'], 'string', 'max' => 26],
-            [['mobile_no'], 'string', 'max' => 12],
-            [['itinerary_id'], 'unique'],
+            [['mobile_no'], 'integer'],
             [['email'], 'email'],
+            [['itinerary_id', 'mobile_no'], 'unique', 'targetAttribute' => ['itinerary_id', 'mobile_no']]
         ];
     }
 

@@ -61,10 +61,15 @@ class CustomerController extends Controller
     public function actionCreate()
     {
         $model = new Customer();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $postData = Yii::$app->request->post();
+        if($postData && !empty( $postData['Customer']['day_description'] )){
+            $postData['Customer']['day_description'] = json_encode($postData['Customer']['day_description']);
+        }
+        print_r($postData);
+        if ($model->load($postData) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            print_r($model->errors);
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -80,8 +85,13 @@ class CustomerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        
+        $postData = Yii::$app->request->post();
+        if($postData && !empty( $postData['Customer']['day_description'] )){
+            $postData['Customer']['day_description'] = json_encode($postData['Customer']['day_description']);
+        }
+        
+        if ($model->load($postData) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

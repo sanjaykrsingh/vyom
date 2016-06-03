@@ -9,7 +9,7 @@ use yii\filters\VerbFilter;
 use backend\models\UploadedFile;
 
 /**
- * RestaurantController implements the CRUD actions for Restaurant model.
+ * Controller implements the CRUD actions for  model.
  */
 class UploadedFileController extends Controller {
 
@@ -24,23 +24,9 @@ class UploadedFileController extends Controller {
         ];
     }
 
+   
     /**
-     * Lists all Restaurant models.
-     * @return mixed
-     */
-    public function actionIndex() {
-        $searchModel = new RestaurantSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-        ]);
-    }
-
-
-    /**
-     * Deletes an existing Restaurant model.
+     * Deletes an existing  model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -73,10 +59,10 @@ class UploadedFileController extends Controller {
     }
 
     /**
-     * Finds the Restaurant model based on its primary key value.
+     * Finds the  model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Restaurant the loaded model
+     * @return  the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id) {

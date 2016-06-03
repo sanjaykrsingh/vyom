@@ -52,7 +52,14 @@ return [
                 'skin' => 'skin-blue',
             ],
         ],
+            
     ],
+        'urlManager' => [
+            'enablePrettyUrl' => false,
+            'enableStrictParsing' => true,
+            'showScriptName' => false,
+                   
+        ]
     ],
      'as access' => [
         'class' => 'mdm\admin\components\AccessControl',

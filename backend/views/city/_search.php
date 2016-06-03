@@ -21,7 +21,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'code') ?>
 
+    <?= $form->field($model, 'description') ?>
+
     <?= $form->field($model, 'country_name') ?>
+
+    <?php // echo $form->field($model, 'latitude') ?>
+
+    <?php // echo $form->field($model, 'longitude') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

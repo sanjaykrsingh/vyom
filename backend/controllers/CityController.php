@@ -8,6 +8,8 @@ use backend\models\CitySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\UploadForm;
+use yii\web\UploadedFile;
 
 /**
  * CityController implements the CRUD actions for City model.
@@ -41,15 +43,20 @@ class CityController extends Controller
         ]);
     }
 
+   
     /**
      * Displays a single City model.
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
+        $model = $this->findModel($id);
+        $imageModel = new UploadForm();
+        $bigImageList = $imageModel->getImageList($id, 'City', 'Big');
+        $smallImageList = $imageModel->getImageList($id, 'City', 'Small');
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $model, 'bigImageList' => $bigImageList, 'smallImageList' => $smallImageList
         ]);
     }
 
@@ -58,17 +65,32 @@ class CityController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new City();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        $imageModel = new UploadForm();
+        print_r(Yii::$app->request->post());
+        if ($model->load(Yii::$app->request->post()) && $imageModel->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            $isValid = $model->validate();
+            print_r($model->errors);
+            if ($isValid) {
+                $model->save(false);
+                $isValid = false;
+                $imageModel->imageFiles = UploadedFile::getInstances($imageModel, 'imageFiles');
+                $imageModel->smallFiles = UploadedFile::getInstances($imageModel, 'smallFiles');
+
+                if ($imageModel->upload($model->id, 'City')) {
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    $transaction->rollBack();
+                }
+            }
         }
+        return $this->render('create', [
+                    'model' => $model, 'imageModel' => $imageModel
+        ]);
     }
 
     /**
@@ -77,17 +99,34 @@ class CityController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        $imageModel = new UploadForm();
+        $bigImageList = $imageModel->getImageList($id, 'City', 'Big');
+        $smallImageList = $imageModel->getImageList($id, 'City', 'Small');
+        
+        if ($model->load(Yii::$app->request->post()) && $imageModel->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            $isValid = $model->validate();
+            
+            if ($isValid) {
+                $model->save(false);
+                
+                $isValid = false;
+                $imageModel->imageFiles = UploadedFile::getInstances($imageModel, 'imageFiles');
+                $imageModel->smallFiles = UploadedFile::getInstances($imageModel, 'smallFiles');
+                
+                if ($imageModel->upload($model->id, 'City')) {
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    $transaction->rollBack();
+                }
+            }
         }
+        return $this->render('update', [
+                    'model' => $model, 'imageModel' => $imageModel, 'bigImageList' => $bigImageList, 'smallImageList' => $smallImageList
+        ]);
     }
 
     /**

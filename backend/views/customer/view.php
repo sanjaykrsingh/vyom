@@ -32,11 +32,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'itinerary_id',
             'mobile_no',
             'email:email',
-            'day_description:ntext',
+          
             'created_at',
             'updated_at',
         ],
     ]) ?>
+    <?php    
+      if(!is_array($model->day_description)){
+          $model->day_description = json_decode($model->day_description, true);
+      }
+      
+      for($i=1 ; $i<=10; $i++) {
+          $day_value = (!empty($model->day_description['day'.$i]))?$model->day_description['day'.$i]:"";
+       ?>
+       <div class="form-group field-customer-day_description has-success">
+        <label class="control-label" for="customer-day_description">Day <?=$i;?></label>
+        <textarea id="customer-day_description<?=$i;?>" disabled="" class="form-control" name="Customer[day_description][day<?=$i;?>]" rows="6"><?=$day_value;?></textarea>
+        <div class="help-block"></div>
+        </div> 
+    <?php }?>
     
     
 
