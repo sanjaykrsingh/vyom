@@ -70,11 +70,11 @@ class ServicesController extends Controller
         $model = new Services();
 
         $imageModel = new UploadForm();
-        print_r(Yii::$app->request->post());
+        
         if ($model->load(Yii::$app->request->post()) && $imageModel->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
             $isValid = $model->validate();
-            print_r($model->errors);
+        
             if ($isValid) {
                 $model->save(false);
                 $isValid = false;
@@ -108,7 +108,7 @@ class ServicesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $imageModel->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
             $isValid = $model->validate();
-            print_r($model->errors);
+            
             if ($isValid) {
                 $model->save(false);
                 $isValid = false;

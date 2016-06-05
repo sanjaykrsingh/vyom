@@ -11,9 +11,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Restaurants'), 'url'
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="restaurant-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
@@ -23,13 +20,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+         
+        <?= Html::a(Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-success']) ?>
+        
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'city_id',
+            //'id',
+             [                      // the owner name of the model
+            'label' => 'City',
+            'value' => $model->cities->name,
+             ],
             'type',
             'title',
             'Description:ntext',

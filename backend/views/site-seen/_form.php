@@ -21,6 +21,14 @@ $cities = $cityObj->getAllCities();
 
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+	    
+    <?= $form->field($model, 'valid_from') ?>
+    <?= $form->field($model, 'valid_to') ?>
+    <?= $form->field($model, 'retail_price') ?>
+    <?= $form->field($model, 'discounted_price') ?>
+    
+	
+
 
     <?= $form->field($model, 'Description')->textarea(['rows' => 6]) ?>
 
@@ -68,7 +76,7 @@ $cities = $cityObj->getAllCities();
                                     </div></div> <div class="file-actions">
                                     <div class="file-footer-buttons">
                                         <button type="button" class="kv-file-remove btn btn-xs btn-default"  onclick="deleteImage(<?= $val['id']?>, 'preview-image-<?= $val['id']?>', 'site-seen' )" title="Remove" data-url="" data-key=""><i class="glyphicon glyphicon-trash text-danger"></i></button>
-                                        <button type="button" class="kv-file-zoom btn btn-xs btn-default" title="посмотреть детали"><i class="glyphicon glyphicon-zoom-in"></i></button>     </div>
+                                             </div>
                                     
                                     <div class="file-upload-indicator" title=""></div>
                                     <div class="clearfix"></div>
@@ -97,7 +105,7 @@ $cities = $cityObj->getAllCities();
                                     </div></div> <div class="file-actions">
                                     <div class="file-footer-buttons">
                                         <button type="button" class="kv-file-remove btn btn-xs btn-default" onclick="deleteImage(<?= $val['id']?>, 'preview-image-<?= $val['id']?>', 'site-seen' )"  title="remove" data-url="" data-key=""><i class="glyphicon glyphicon-trash text-danger"></i></button>
-                                        <button type="button" class="kv-file-zoom btn btn-xs btn-default" title="посмотреть детали"><i class="glyphicon glyphicon-zoom-in"></i></button>     </div>
+                                             </div>
                                     
                                     <div class="file-upload-indicator" title=""></div>
                                     <div class="clearfix"></div>

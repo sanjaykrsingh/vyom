@@ -60,14 +60,14 @@ class Restaurant extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['city_id', 'type', 'title', 'Description', 'address1', 'phone_no1', 'latitude', 'longitude'], 'required'],
+            [['city_id', 'type', 'title', 'address1'], 'required'],
             [['city_id'], 'integer'],
             [['type', 'Description'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 1024],
             [['open_time','close_time','address1', 'address2'], 'string'],
-            [['phone_no1', 'phone_no2'], 'integer'],
-            [['latitude', 'longitude'], 'integer']
+            [['phone_no1', 'phone_no2'], 'string', 'max' => 12],
+            [['latitude', 'longitude'], 'number']
         ];
     }
 
@@ -79,8 +79,8 @@ class Restaurant extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'city_id' => Yii::t('app', 'City'),
-            'type' => Yii::t('app', 'Type like(Restaurant, Pub, Night Clubs)'),
-            'title' => Yii::t('app', 'Title'),
+            'type' => Yii::t('app', 'Type'),
+            'title' => Yii::t('app', 'Name'),
             'Description' => Yii::t('app', 'Description'),
             'open_time' => Yii::t('app', 'Open time'),
             'close_time' => Yii::t('app', 'Close time'),
@@ -91,5 +91,14 @@ class Restaurant extends \yii\db\ActiveRecord
             'latitude' => Yii::t('app', 'Latitude'),
             'longitude' => Yii::t('app', 'Longitude')
         ];
+    }
+    
+    /**
+     * Relation
+     * @return type
+     */
+    public function getCities()
+    {
+        return $this->hasOne(City::className(), ['id' => 'city_id']);
     }
 }

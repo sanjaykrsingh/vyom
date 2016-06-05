@@ -11,7 +11,7 @@ AjaxLoaderAsset::register($this);
 
 <header class="main-header">
 
-    <?= Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+    <?= Html::a('<span class="logo-mini">APP</span><span class="logo-lg">Vyom Travels</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
 
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -149,18 +149,16 @@ AjaxLoaderAsset::register($this);
                 </li>-->
                 <!-- User Account: style can be found in dropdown.less -->
 
-                <li class="dropdown user user-menu">
+                <li class="dropdown user user-menu" >
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
-                        <span class="hidden-xs"></span>
+                        <span class="hidden-xs"><?= ucwords(Yii::$app->user->identity->username);?></span>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="width: 20%">
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
-                            </div>
-                            <div class="pull-right">
+                            
+                            <div>
                                 <?= Html::a(
                                     'Sign out',
                                     ['/site/logout'],

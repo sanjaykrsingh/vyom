@@ -11,6 +11,7 @@ use backend\models\City;
 <?php
 $cityObj = new City();
 $cities = $cityObj->getAllCities();
+$model->type = 'Restaurant';
 ?>
 <div class="restaurant-form">
 
@@ -20,7 +21,7 @@ $cities = $cityObj->getAllCities();
 <?= $form->field($model, 'city_id')->dropDownList(yii\helpers\ArrayHelper::map($cities, 'id', 'name'),['options' => [$model->city_id => ['Selected'=>true]]]) ?>
 
 
-    <?= $form->field($model, 'type')->dropDownList([ 'Restaurant' => 'Restaurant', 'Pub' => 'Pub', ' Nightclubs' => ' Nightclubs',], ['prompt' => '']) ?>
+    <?= $form->field($model, 'type')->dropDownList([ 'Restaurant' => 'Restaurant', 'Pub' => 'Pub', ' Nightclubs' => ' Nightclubs']) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
@@ -68,7 +69,7 @@ $cities = $cityObj->getAllCities();
                                     </div></div> <div class="file-actions">
                                     <div class="file-footer-buttons">
                                         <button type="button" class="kv-file-remove btn btn-xs btn-default"  onclick="deleteImage(<?= $val['id']?>, 'preview-image-<?= $val['id']?>', 'restaurant' )" title="Remove" data-url="" data-key=""><i class="glyphicon glyphicon-trash text-danger"></i></button>
-                                        <button type="button" class="kv-file-zoom btn btn-xs btn-default" title="посмотреть детали"><i class="glyphicon glyphicon-zoom-in"></i></button>     </div>
+                                             </div>
                                     
                                     <div class="file-upload-indicator" title=""></div>
                                     <div class="clearfix"></div>
@@ -97,7 +98,7 @@ $cities = $cityObj->getAllCities();
                                     </div></div> <div class="file-actions">
                                     <div class="file-footer-buttons">
                                         <button type="button" class="kv-file-remove btn btn-xs btn-default" onclick="deleteImage(<?= $val['id']?>, 'preview-image-<?= $val['id']?>', 'restaurant' )"  title="remove" data-url="" data-key=""><i class="glyphicon glyphicon-trash text-danger"></i></button>
-                                        <button type="button" class="kv-file-zoom btn btn-xs btn-default" title="посмотреть детали"><i class="glyphicon glyphicon-zoom-in"></i></button>     </div>
+                                             </div>
                                     
                                     <div class="file-upload-indicator" title=""></div>
                                     <div class="clearfix"></div>

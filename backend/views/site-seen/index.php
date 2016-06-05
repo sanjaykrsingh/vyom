@@ -12,30 +12,36 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-seen-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Site Seen'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+   <?php
+$cityObj = new backend\models\City();
+$cities = $cityObj->getAllCities();
+?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'city_id',
+            //'id',
+            [
+                'attribute' => 'city_id',
+                'value' => 'cities.name',                
+                'filter' => yii\helpers\ArrayHelper::map($cities , 'id', 'name')
+            ],
+            
             'title',
             'Description:ntext',
             'open_time',
-            // 'close_time',
-            // 'address1',
+            'close_time',
+            //'address1',
             // 'address2',
             // 'phone_no1',
             // 'phone_no2',
-            // 'email:email',
             // 'latitude',
             // 'longitude',
             // 'created_at',
@@ -44,5 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+
 
 </div>

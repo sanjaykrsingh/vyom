@@ -67,7 +67,7 @@ $cities = $cityObj->getAllCities();
                                     </div></div> <div class="file-actions">
                                     <div class="file-footer-buttons">
                                         <button type="button" class="kv-file-remove btn btn-xs btn-default"  onclick="deleteImage(<?= $val['id']?>, 'preview-image-<?= $val['id']?>', 'service' )" title="Remove" data-url="" data-key=""><i class="glyphicon glyphicon-trash text-danger"></i></button>
-                                        <button type="button" class="kv-file-zoom btn btn-xs btn-default" title="посмотреть детали"><i class="glyphicon glyphicon-zoom-in"></i></button>     </div>
+                                             </div>
                                     
                                     <div class="file-upload-indicator" title=""></div>
                                     <div class="clearfix"></div>
@@ -96,7 +96,7 @@ $cities = $cityObj->getAllCities();
                                     </div></div> <div class="file-actions">
                                     <div class="file-footer-buttons">
                                         <button type="button" class="kv-file-remove btn btn-xs btn-default" onclick="deleteImage(<?= $val['id']?>, 'preview-image-<?= $val['id']?>', 'service' )"  title="remove" data-url="" data-key=""><i class="glyphicon glyphicon-trash text-danger"></i></button>
-                                        <button type="button" class="kv-file-zoom btn btn-xs btn-default" title="посмотреть детали"><i class="glyphicon glyphicon-zoom-in"></i></button>     </div>
+                                             </div>
                                     
                                     <div class="file-upload-indicator" title=""></div>
                                     <div class="clearfix"></div>

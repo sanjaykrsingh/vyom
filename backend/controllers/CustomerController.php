@@ -65,11 +65,11 @@ class CustomerController extends Controller
         if($postData && !empty( $postData['Customer']['day_description'] )){
             $postData['Customer']['day_description'] = json_encode($postData['Customer']['day_description']);
         }
-        print_r($postData);
+        
         if ($model->load($postData) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            print_r($model->errors);
+        
             return $this->render('create', [
                 'model' => $model,
             ]);

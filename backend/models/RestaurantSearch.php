@@ -46,6 +46,8 @@ class RestaurantSearch extends Restaurant
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        
+        $query->joinWith(['cities']); 
 
         $this->load($params);
 
@@ -71,7 +73,7 @@ class RestaurantSearch extends Restaurant
             ->andFilterWhere(['like', 'phone_no2', $this->phone_no2])
             ->andFilterWhere(['like', 'latitude', $this->latitude])
             ->andFilterWhere(['like', 'longitude', $this->longitude]);
-
+        
         return $dataProvider;
     }
 }

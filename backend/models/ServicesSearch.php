@@ -46,6 +46,8 @@ class ServicesSearch extends Services
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        
+         $query->joinWith(['cities']); 
 
         $this->load($params);
 

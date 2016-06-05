@@ -106,7 +106,7 @@ class SiteSeenController extends Controller
         if ($model->load(Yii::$app->request->post()) && $imageModel->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
             $isValid = $model->validate();
-            print_r($model->errors);
+            
             if ($isValid) {
                 $model->save(false);
                 $isValid = false;

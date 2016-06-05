@@ -2,10 +2,15 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use backend\models\City;
 /* @var $this yii\web\View */
 /* @var $model backend\models\RestaurantSearch */
 /* @var $form yii\widgets\ActiveForm */
+?>
+
+<?php
+$cityObj = new City();
+$cities = $cityObj->getAllCities();
 ?>
 
 <div class="restaurant-search">
@@ -16,8 +21,8 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'city_id') ?>
+    
+    <?= $form->field($model, 'city_id')->dropDownList(yii\helpers\ArrayHelper::map($cities, 'id', 'name'),['options' => [$model->city_id => ['Selected'=>true]]]) ?>
 
     <?= $form->field($model, 'type') ?>
 

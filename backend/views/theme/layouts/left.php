@@ -8,7 +8,7 @@ use dmstr\widgets\Menu;
     <section class="sidebar">
 
         <!-- Sidebar user panel -->
-        <div class="user-panel">
+        <!--<div class="user-panel">
             <div class="pull-left image">
                 <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
             </div>
@@ -18,9 +18,9 @@ use dmstr\widgets\Menu;
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
-
+        -->
         <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
+        <!--<form action="#" method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search..."/>
               <span class="input-group-btn">
@@ -30,7 +30,7 @@ use dmstr\widgets\Menu;
             </div>
         </form>
         <!-- /.search form -->
-
+        
         <?php use mdm\admin\components\MenuHelper;
               //use dmstr\menuhelpers\MenuHelper;
         $items = MenuHelper::getAssignedMenu(Yii::$app->user->id, null, null,true);

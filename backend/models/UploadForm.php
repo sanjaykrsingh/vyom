@@ -40,7 +40,7 @@ class UploadForm extends Model {
             
             $path = $this->getUploadPath($reference_type);
             if(empty($path)) return false;
-            //print_r($path);die;
+            
             foreach ($this->imageFiles as $file) {
                 $filename = $file->baseName . time() . '-big.' . $file->extension;
                 $file->saveAs($path['upload_full_path'] . $filename);
@@ -60,7 +60,7 @@ class UploadForm extends Model {
 
                 if ($uploadedFileObj->load($fileInfo, 'UploadedFile')) {
                     $isValid = $uploadedFileObj->validate();
-                    print_r($uploadedFileObj->errors);
+                    
                     if ($isValid) {
                         $uploadedFileObj->save(false);
                     }
@@ -85,7 +85,7 @@ class UploadForm extends Model {
 
                 if ($uploadedFileObj->load($fileInfo, 'UploadedFile')) {
                     $isValid = $uploadedFileObj->validate();
-                    print_r($uploadedFileObj->errors);
+                    
                     if ($isValid) {
                         $uploadedFileObj->save(false);
                     }

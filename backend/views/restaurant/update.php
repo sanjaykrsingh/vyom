@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="restaurant-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    
 
     <?= $this->render('_form', [
                     'model' => $model,'imageModel' => $imageModel, 'bigImageList'=>$bigImageList,'smallImageList'=>$smallImageList 

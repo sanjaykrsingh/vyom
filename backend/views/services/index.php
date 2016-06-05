@@ -12,23 +12,34 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="services-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Services'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
+<?php
+$cityObj = new backend\models\City();
+$cities = $cityObj->getAllCities();
+?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'id',
-            'city_id',
-            'type',
+            //'id',
+            [
+                'attribute' => 'city_id',
+                'value' => 'cities.name',                
+                'filter' => yii\helpers\ArrayHelper::map($cities , 'id', 'name')
+            ],
+            
             'title',
             'Description:ntext',
-            // 'address1',
+            'open_time',
+            'close_time',
+            'type',
+            
+            //'address1',
             // 'address2',
             // 'phone_no1',
             // 'phone_no2',

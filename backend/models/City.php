@@ -55,6 +55,6 @@ class City extends \yii\db\ActiveRecord
     
      
    public function getAllCities(){ 
-       return $this->find()->all(); 
+       return $this->find()->orderBy('name')->all(); 
    } 
 }

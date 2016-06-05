@@ -46,7 +46,9 @@ class SiteSeenSearch extends SiteSeen
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
+        
+         $query->joinWith(['cities']); 
+        
         $this->load($params);
 
         if (!$this->validate()) {

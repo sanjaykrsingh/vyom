@@ -12,9 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="services-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    
 
-    <p>
+   <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -23,13 +23,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+         
+        <?= Html::a(Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-success']) ?>
+        
     </p>
-
-    <?= DetailView::widget([
+<?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'city_id',
+            //'id',
+             [                      // the owner name of the model
+            'label' => 'City',
+            'value' => $model->cities->name,
+             ],
             'type',
             'title',
             'Description:ntext',
@@ -95,5 +100,3 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
     
 </div>
-
-
