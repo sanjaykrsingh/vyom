@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'country_name')->textInput(['maxlength' => true]) ?>
+   
 
     <?= $form->field($model, 'latitude')->textInput(['maxlength' => true]) ?>
 

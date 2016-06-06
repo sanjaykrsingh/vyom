@@ -31,9 +31,10 @@ class City extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name', 'code'], 'required'],
             [['name', 'code', 'country_name'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 2048],
-            [['latitude', 'longitude'], 'string', 'max' => 20]
+            [['latitude', 'longitude'], 'number']
         ];
     }
 

@@ -64,7 +64,7 @@ class SiteSeen extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['city_id', 'title', 'address1', 'phone_no1'], 'required'],
+            [['city_id', 'title'], 'required'],
             [['city_id'], 'integer'],
             [['email'], 'email'],
             [['valid_from', 'valid_to', 'created_at', 'updated_at'], 'safe'],
@@ -74,7 +74,7 @@ class SiteSeen extends \yii\db\ActiveRecord
             [['open_time', 'close_time'], 'string', 'max' => 50],
             [['address1', 'address2', 'email'], 'string', 'max' => 100],
             [['phone_no1', 'phone_no2'], 'string', 'max' => 11],
-            [['latitude', 'longitude'], 'number', 'max' => 20]
+            [['latitude', 'longitude'], 'number']
         ];
     }
 

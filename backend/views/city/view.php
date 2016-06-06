@@ -23,6 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+         
+        <?= Html::a(Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-success']) ?>
+        
     </p>
 
     <?= DetailView::widget([
@@ -32,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'code',
             'description',
-            'country_name',
+            //'country_name',
             'latitude',
             'longitude',
         ],
