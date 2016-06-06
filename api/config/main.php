@@ -34,12 +34,35 @@ return [
                 [
                     'class' => 'yii\rest\UrlRule', 
                     'controller' => 'country'
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule', 
+                    'controller' => 'city'
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule', 
+                    'controller' => 'customer'
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule', 
+                    'controller' => 'restaurant'
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule', 
+                    'controller' => 'services'
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule', 
+                    'controller' => 'siteseen'
                 ]
             ],        
+        ],
+        'request' => [
+           'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+                'application/xml' => 'yii\web\JsonParser',
         ]
+]
     ],
     'params' => $params,
 ];
-
-
-
