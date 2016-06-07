@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 05, 2016 at 04:40 PM
+-- Generation Time: Jun 08, 2016 at 02:42 AM
 -- Server version: 5.5.49-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.17
 
@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('Admin', '1', 1450353347),
 ('Manager', '1', 1450353347),
+('Manager', '10', 1465326326),
 ('Seller', '1', 1464466963),
 ('Super Admin', '1', 1450353347),
 ('User Management', '1', 1450353347),
@@ -435,11 +436,11 @@ CREATE TABLE IF NOT EXISTS `city` (
   `name` varchar(255) NOT NULL DEFAULT '',
   `code` varchar(255) NOT NULL DEFAULT '',
   `description` varchar(2048) DEFAULT NULL,
-  `country_name` varchar(255) NOT NULL DEFAULT '',
+  `country_name` varchar(255) DEFAULT '',
   `latitude` varchar(20) DEFAULT NULL,
   `longitude` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `city`
@@ -471,62 +472,8 @@ INSERT INTO `city` (`id`, `name`, `code`, `description`, `country_name`, `latitu
 (24, 'Hokitika', 'HKK', NULL, ' New Zealand', NULL, NULL),
 (25, 'Invercargill', 'IVC', NULL, ' New Zealand', NULL, NULL),
 (26, 'Taupo', 'TUO', NULL, ' New Zealand', NULL, NULL),
-(27, 'Tauranga', 'TRG', NULL, ' New Zealand', NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `country`
---
-
-CREATE TABLE IF NOT EXISTS `country` (
-  `code` char(2) NOT NULL,
-  `name` char(52) NOT NULL,
-  `population` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `country`
---
-
-INSERT INTO `country` (`code`, `name`, `population`) VALUES
-('AU', 'Australia', 18886000),
-('BR', 'Brazil', 170115000),
-('CA', 'Canada', 1147000),
-('CN', 'China', 1277558000),
-('DE', 'Germany', 82164700),
-('FR', 'France', 59225700),
-('GB', 'United Kingdom', 59623400),
-('IN', 'India', 1013662000),
-('RU', 'Russia', 146934000),
-('US', 'United States', 278357000);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `customer`
---
-
-CREATE TABLE IF NOT EXISTS `customer` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `itinerary_id` char(26) NOT NULL,
-  `mobile_no` varchar(12) NOT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `day_description` text,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `itinerary_id` (`itinerary_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `customer`
---
-
-INSERT INTO `customer` (`id`, `name`, `itinerary_id`, `mobile_no`, `email`, `day_description`, `created_at`, `updated_at`) VALUES
-(2, 'Sanjay', 'R000001', '999999999', 'sanjay@gmail.com', '{"day1":"sdfsdglkdashlsdg h","day2":"dsk glhl kdfhghjhjkhh","day3":"hhjhjj","day4":"jjjjj","day5":"jjjjj","day6":"jjjj","day7":"jjjjhhjh","day8":"jhjkjbmb,","day9":"jbbmmbb,","day10":"jkbjbbm"}', '2016-06-03 02:13:49', '2016-06-03 02:22:30');
+(27, 'Tauranga', 'TRG', NULL, ' New Zealand', NULL, NULL),
+(30, 'Cityname', 'COde', 'Desc', '', '12.999299', '34.234324');
 
 -- --------------------------------------------------------
 
@@ -565,7 +512,7 @@ INSERT INTO `menu` (`id`, `name`, `parent`, `route`, `order`, `data`, `icon`) VA
 (13, 'Cities', NULL, '/city/index', 2, NULL, 'fa fa-circle-o'),
 (15, 'Services', NULL, '/services/index', 3, NULL, 'fa fa-circle-o'),
 (16, 'Site-Seen', NULL, '/site-seen/index', 4, NULL, 'fa fa-circle-o'),
-(17, 'Customer', NULL, '/customer/index', 1, NULL, 'fa fa-circle-o');
+(17, 'Itinerary', NULL, '/customer/index', 1, NULL, 'fa fa-circle-o');
 
 -- --------------------------------------------------------
 
@@ -612,15 +559,14 @@ CREATE TABLE IF NOT EXISTS `restaurant` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `restaurant`
 --
 
 INSERT INTO `restaurant` (`id`, `city_id`, `type`, `title`, `Description`, `open_time`, `close_time`, `address1`, `address2`, `phone_no1`, `phone_no2`, `latitude`, `longitude`, `created_at`, `updated_at`) VALUES
-(1, 9, 'Restaurant', 'Name', 'Desc', 'Restaurant[open_time]', 'Restaurant[close_time]', 'Restaurant[address1]', 'Restaurant[address2]', '1234567890', '1234567890', '433', '34234', '2016-06-05 08:54:04', '2016-06-05 03:24:04'),
-(2, 9, 'Restaurant', 'Restaurant[title]', 'Restaurant[Description]', 'Restaurant[open_time]', 'Restaurant[close_time]', 'Restaurant[address1]', 'Restaurant[address2]', '1234567890', '1234567890', '4.5555555555555555', '6.3434234234', '2016-06-05 10:06:41', '2016-06-05 04:36:41');
+(3, 12, 'Restaurant', 'Restaurant[title]', 'Restaurant[Description]', 'Restaurant[open_time]', 'Restaurant[close_time]', 'Restaurant[address1]', 'Restaurant[address2]', '1234567890', '1234567890', '21.21321', '23.3242', '2016-06-07 08:18:39', '2016-06-07 02:48:39');
 
 -- --------------------------------------------------------
 
@@ -743,50 +689,7 @@ CREATE TABLE IF NOT EXISTS `uploaded_file` (
   `cover_image` tinyint(1) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
-
---
--- Dumping data for table `uploaded_file`
---
-
-INSERT INTO `uploaded_file` (`id`, `reference_id`, `reference_type`, `name`, `filename`, `size`, `path`, `type`, `cover_image`, `created_at`) VALUES
-(1, 1, 'Restaurant', 'download.jpg', 'download1465116844-big.jpg', 10708, '/../upload/restaurants/download1465116844-big.jpg', 'Big', 1, '2016-06-05 08:54:04'),
-(2, 1, 'Restaurant', 'download (1).jpg', 'download (1)1465116844-big.jpg', 7008, '/../upload/restaurants/download (1)1465116844-big.jpg', 'Big', 1, '2016-06-05 08:54:04'),
-(3, 1, 'Restaurant', 'download.jpg', 'download1465116844-small.jpg', 10708, '/../upload/restaurants/download1465116844-small.jpg', 'Small', 0, '2016-06-05 08:54:04'),
-(4, 1, 'Restaurant', 'download (1).jpg', 'download (1)1465116844-small.jpg', 7008, '/../upload/restaurants/download (1)1465116844-small.jpg', 'Small', 0, '2016-06-05 08:54:04'),
-(5, 1, 'Services', '3.jpg', '31465119835-big.jpg', 273710, '/../upload/services/31465119835-big.jpg', 'Big', 1, '2016-06-05 09:43:55'),
-(6, 1, 'Services', 'download.jpg', 'download1465119835-big.jpg', 10708, '/../upload/services/download1465119835-big.jpg', 'Big', 1, '2016-06-05 09:43:55'),
-(7, 1, 'Services', 'download (1).jpg', 'download (1)1465119835-big.jpg', 7008, '/../upload/services/download (1)1465119835-big.jpg', 'Big', 1, '2016-06-05 09:43:55'),
-(8, 1, 'Services', 'index.jpeg', 'index1465119835-big.jpeg', 4332, '/../upload/services/index1465119835-big.jpeg', 'Big', 1, '2016-06-05 09:43:55'),
-(9, 1, 'Services', 'screenshot2.png', 'screenshot21465119835-big.png', 95084, '/../upload/services/screenshot21465119835-big.png', 'Big', 1, '2016-06-05 09:43:55'),
-(10, 1, 'Services', 'setting.png', 'setting1465119835-big.png', 504470, '/../upload/services/setting1465119835-big.png', 'Big', 1, '2016-06-05 09:43:55'),
-(11, 1, 'Services', '3.jpg', '31465119835-small.jpg', 273710, '/../upload/services/31465119835-small.jpg', 'Small', 0, '2016-06-05 09:43:55'),
-(12, 1, 'Services', 'download.jpg', 'download1465119835-small.jpg', 10708, '/../upload/services/download1465119835-small.jpg', 'Small', 0, '2016-06-05 09:43:55'),
-(13, 1, 'Services', 'download (1).jpg', 'download (1)1465119835-small.jpg', 7008, '/../upload/services/download (1)1465119835-small.jpg', 'Small', 0, '2016-06-05 09:43:55'),
-(14, 1, 'Services', 'index.jpeg', 'index1465119835-small.jpeg', 4332, '/../upload/services/index1465119835-small.jpeg', 'Small', 0, '2016-06-05 09:43:55'),
-(15, 1, 'Services', 'screenshot2.png', 'screenshot21465119835-small.png', 95084, '/../upload/services/screenshot21465119835-small.png', 'Small', 0, '2016-06-05 09:43:55'),
-(16, 1, 'Services', 'setting.png', 'setting1465119835-small.png', 504470, '/../upload/services/setting1465119835-small.png', 'Small', 0, '2016-06-05 09:43:55'),
-(17, 2, 'Services', '3.jpg', '31465122448-big.jpg', 273710, '/../upload/services/31465122448-big.jpg', 'Big', 1, '2016-06-05 10:27:28'),
-(18, 2, 'Services', 'download.jpg', 'download1465122448-big.jpg', 10708, '/../upload/services/download1465122448-big.jpg', 'Big', 1, '2016-06-05 10:27:28'),
-(19, 2, 'Services', 'download (1).jpg', 'download (1)1465122448-big.jpg', 7008, '/../upload/services/download (1)1465122448-big.jpg', 'Big', 1, '2016-06-05 10:27:28'),
-(20, 2, 'Services', 'index.jpeg', 'index1465122448-big.jpeg', 4332, '/../upload/services/index1465122448-big.jpeg', 'Big', 1, '2016-06-05 10:27:28'),
-(21, 2, 'Services', 'screenshot2.png', 'screenshot21465122448-big.png', 95084, '/../upload/services/screenshot21465122448-big.png', 'Big', 1, '2016-06-05 10:27:28'),
-(22, 2, 'Services', 'setting.png', 'setting1465122448-big.png', 504470, '/../upload/services/setting1465122448-big.png', 'Big', 1, '2016-06-05 10:27:28'),
-(23, 3, 'Services', 'download.jpg', 'download1465123371-big.jpg', 10708, '/../upload/services/download1465123371-big.jpg', 'Big', 1, '2016-06-05 10:42:51'),
-(24, 3, 'Services', 'download (1).jpg', 'download (1)1465123371-big.jpg', 7008, '/../upload/services/download (1)1465123371-big.jpg', 'Big', 1, '2016-06-05 10:42:51'),
-(25, 3, 'Services', 'index.jpeg', 'index1465123371-big.jpeg', 4332, '/../upload/services/index1465123371-big.jpeg', 'Big', 1, '2016-06-05 10:42:51'),
-(26, 3, 'Services', 'screenshot2.png', 'screenshot21465123371-big.png', 95084, '/../upload/services/screenshot21465123371-big.png', 'Big', 1, '2016-06-05 10:42:51'),
-(27, 1, 'SiteSeen', 'download.jpg', 'download1465123937-big.jpg', 10708, '/../upload/download1465123937-big.jpg', 'Big', 1, '2016-06-05 10:52:17'),
-(28, 1, 'SiteSeen', 'download (1).jpg', 'download (1)1465123937-big.jpg', 7008, '/../upload/download (1)1465123937-big.jpg', 'Big', 1, '2016-06-05 10:52:17'),
-(29, 1, 'SiteSeen', 'index.jpeg', 'index1465123937-big.jpeg', 4332, '/../upload/index1465123937-big.jpeg', 'Big', 1, '2016-06-05 10:52:17'),
-(30, 1, 'SiteSeen', 'screenshot2.png', 'screenshot21465123937-big.png', 95084, '/../upload/screenshot21465123937-big.png', 'Big', 1, '2016-06-05 10:52:17'),
-(31, 1, 'SiteSeen', 'setting.png', 'setting1465123937-big.png', 504470, '/../upload/setting1465123937-big.png', 'Big', 1, '2016-06-05 10:52:17'),
-(32, 1, 'SiteSeen', '3.jpg', '31465123937-small.jpg', 273710, '/../upload/31465123937-small.jpg', 'Small', 0, '2016-06-05 10:52:17'),
-(33, 1, 'SiteSeen', 'download.jpg', 'download1465123937-small.jpg', 10708, '/../upload/download1465123937-small.jpg', 'Small', 0, '2016-06-05 10:52:17'),
-(34, 1, 'SiteSeen', 'download (1).jpg', 'download (1)1465123937-small.jpg', 7008, '/../upload/download (1)1465123937-small.jpg', 'Small', 0, '2016-06-05 10:52:17'),
-(35, 1, 'SiteSeen', 'index.jpeg', 'index1465123937-small.jpeg', 4332, '/../upload/index1465123937-small.jpeg', 'Small', 0, '2016-06-05 10:52:17'),
-(36, 1, 'SiteSeen', 'screenshot2.png', 'screenshot21465123937-small.png', 95084, '/../upload/screenshot21465123937-small.png', 'Small', 0, '2016-06-05 10:52:17'),
-(37, 1, 'SiteSeen', 'setting.png', 'setting1465123937-small.png', 504470, '/../upload/setting1465123937-small.png', 'Small', 0, '2016-06-05 10:52:17');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -802,22 +705,27 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `status` smallint(6) NOT NULL DEFAULT '10',
-  `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `mobile_no` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `day_description` text COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'nTq8nI-MFQmZahBimlNOC2I_4DugYCEK', '$2y$13$4eoYQIlXkPjrn7GSv3Ueue4IfOI0ZldcX4.EA.auiM7SIKxyok4ba', NULL, 'jitendra.kumar@girnarsoft.com', 10, 0, 2015),
-(2, 'test', 'lihqJQ9OjBjDb757GQ77bjWc8J-OH8Az', '$2y$13$G6pAtXwwsrcIPUACx41V6eTGqonu0SrYvqauA./kMoN9TsJwxb3/u', 'qexg-abrHUVxYA92xV_H8mDKauFsLh-5_1424243975', 'test@girnarsoft.com', 10, 0, 2015),
-(3, 'sanjay.singh', 'Fukj-QoOeJW2vjmeBfb4lNNLfIOzn7TK', '$2y$13$T8d7ibcELo.w4KKuj/uHA.iiWH.MLeCbHhXXkfCGJ2/No9BoEOtvi', NULL, 'sanjay.singh@gmail.com', 10, 2016, 2016);
+INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `name`, `mobile_no`, `day_description`, `type`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'nTq8nI-MFQmZahBimlNOC2I_4DugYCEK', '$2y$13$4eoYQIlXkPjrn7GSv3Ueue4IfOI0ZldcX4.EA.auiM7SIKxyok4ba', NULL, 'jitendra.kumar@girnarsoft.com', 10, '0', '0', '0', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'test', 'lihqJQ9OjBjDb757GQ77bjWc8J-OH8Az', '$2y$13$G6pAtXwwsrcIPUACx41V6eTGqonu0SrYvqauA./kMoN9TsJwxb3/u', 'qexg-abrHUVxYA92xV_H8mDKauFsLh-5_1424243975', 'test@girnarsoft.com', 10, '0', '0', '0', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 'R00001', 'KVoa1mhRl8tmb4rjqocbAjIrK7f9UNBT', '$2y$13$qFNzOEbTJOOS7pDmyR1GC.Bzko5XmkLVLxOL7maEK1N6mxqShViyu', NULL, 'test@test.com', 10, 'test', '9871942912', '{"day1":"sdfmnvmfndsfv","day2":"nvsdmnvmvsn","day3":"vmndvm","day4":"vsmsdnvc","day5":"vmnvx","day6":"mnxvmsx","day7":"vsmnvmzx","day8":"vxcvbxcn","day9":"mnvmnxvbmn","day10":"vmncxvmnc"}', 'customer', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 'manager', 'sbmFtdYM3amWGh5guLv3FPxS-HySB_3D', '$2y$13$P.Xk81bWgfkqFhB0gpfZw.lzHp9ooYrGHFJVBeAYF9LZQUZN9mKBm', NULL, 'manager@vyom.com', 10, '', '', '', '', '2016-06-07 07:05:12', '2016-06-07 07:05:12');
 
 --
 -- Constraints for dumped tables
