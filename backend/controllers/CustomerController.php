@@ -65,8 +65,7 @@ class CustomerController extends Controller
         if($postData && !empty( $postData['Customer']['day_description'] )){
             $postData['Customer']['day_description'] = json_encode($postData['Customer']['day_description']);
         }
-        
-        if ($model->load($postData) && $model->save()) {
+        if ($model->load($postData) && $model->createCustomer()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
         
@@ -91,7 +90,7 @@ class CustomerController extends Controller
             $postData['Customer']['day_description'] = json_encode($postData['Customer']['day_description']);
         }
         
-        if ($model->load($postData) && $model->save()) {
+        if ($model->load($postData) && $model->createCustomer()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

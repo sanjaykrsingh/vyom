@@ -13,21 +13,28 @@ use \yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property string $name
- * @property string $itinerary_id
+ * @property string $username
  * @property string $mobile_no
+ * @property string $password_hash
  * @property string $email
  * @property string $day_description
+ * @property string $type
  * @property string $created_at
  * @property string $updated_at
  */
 class Customer extends \yii\db\ActiveRecord
 {
+     const STATUS_DELETED = 0;
+    const STATUS_ACTIVE = 10;
+    
+    public $password;
+    
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'customer';
+        return '{{%user}}';
     }
     
     
@@ -55,16 +62,18 @@ class Customer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'itinerary_id', 'mobile_no','email'], 'required'],
-            [['day_description'], 'safe'],
+            [['name', 'username', 'mobile_no'], 'required'],
+            [['day_description','type'], 'safe'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'email'], 'string', 'max' => 100],
-            [['itinerary_id'], 'string', 'max' => 26],
-            [['mobile_no'], 'integer'],
+            [['username'], 'string', 'max' => 26],
+            [['mobile_no'], 'string'],
             [['email'], 'email'],
-            [['itinerary_id', 'mobile_no'], 'unique', 'targetAttribute' => ['itinerary_id', 'mobile_no']]
-        ];
+            [['username'], 'unique']
+          ];
     }
+    
+   
 
     /**
      * @inheritdoc
@@ -74,7 +83,8 @@ class Customer extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
-            'itinerary_id' => Yii::t('app', 'Itinerary ID'),
+            'username' => Yii::t('app', 'Itinerary ID'),
+            'password_hash' => Yii::t('app', 'Password'),
             'mobile_no' => Yii::t('app', 'Mobile No'),
             'email' => Yii::t('app', 'Email'),
             'day_description' => Yii::t('app', 'Day Description'),
@@ -82,4 +92,61 @@ class Customer extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
+    
+    
+     /**
+     * create user up.
+     *
+     * @return User|null the saved model or null if saving fails
+     */
+    public function createCustomer()
+    {
+        if ($this->validate()) {
+            if(!empty($this->password)){
+                $this->setPassword($this->password);
+                $this->generateAuthKey();
+            }else{
+                $this->setPassword($this->mobile_no);
+            }
+            $this->type = 'customer';
+            if ($this->save()) {
+                return $this;
+            }
+        }
+
+        return null;
+    }
+    
+    public function beforeSave($insert) {
+            if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->status = self::STATUS_ACTIVE;
+                $this->type = 'customer';
+                $this->auth_key = Yii::$app->getSecurity()->generateRandomString();
+            }
+            return true;
+        }
+       
+        return false;
+    }
+    
+    
+    /**
+     * Generates password hash from password and sets it to the model
+     *
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+    }
+
+    /**
+     * Generates "remember me" authentication key
+     */
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString();
+    }
+    
 }

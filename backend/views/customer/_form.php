@@ -13,11 +13,12 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     
-    <?= $form->field($model, 'itinerary_id')->textInput(['maxlength' => true]) ?>
-
+    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'mobile_no')->textInput(['maxlength' => true,'autocomplete'=>"off"]) ?>
+    <?= $form->field($model, 'password')->passwordInput(['autocomplete'=>"off"]) ?>
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
     
-    <?= $form->field($model, 'mobile_no')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
     <?php    

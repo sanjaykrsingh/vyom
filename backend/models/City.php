@@ -15,21 +15,19 @@ use Yii;
  * @property string $latitude
  * @property string $longitude
  */
-class City extends \yii\db\ActiveRecord
-{
+class City extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'city';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['name', 'code'], 'required'],
             [['name', 'code', 'country_name'], 'string', 'max' => 255],
@@ -41,8 +39,7 @@ class City extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
@@ -53,9 +50,25 @@ class City extends \yii\db\ActiveRecord
             'longitude' => Yii::t('app', 'Longitude'),
         ];
     }
-    
-     
-   public function getAllCities(){ 
-       return $this->find()->orderBy('name')->all(); 
-   } 
+
+    public function getAllCities() {
+        return $this->find()->orderBy('name')->all();
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getImages() {
+        return $this->hasMany(UploadedFile::className(), ['reference_id' => 'id'])
+                        ->andOnCondition(['reference_type' => 'City'])->select(['filename','path']);
+    }
+
+    public function extraFields() {
+        return ['images'];
+    }
+
+    public function fields() {
+        return ['id','name', 'code', 'images'];
+    }
+
 }

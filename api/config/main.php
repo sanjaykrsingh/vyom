@@ -10,8 +10,14 @@ $params = array_merge(
 return [
     'id' => 'app-api',
     'basePath' => dirname(__DIR__),   
-    'controllerNamespace' => 'api\controllers',
+    //controllerNamespace' => 'api\modules\v1\controllers',
     'bootstrap' => ['log'],   
+    'modules' => [
+        'v1' => [
+            'basePath' => '@app/modules/v1',
+            'class' => 'api\modules\v1\Module'
+        ]
+    ],
     'components' => [        
         'user' => [
             'identityClass' => 'common\models\User',
@@ -31,30 +37,42 @@ return [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
+                 [
+                    'class'  => 'yii\rest\UrlRule',
+                    'controller'  => [
+                        'v1/user'
+                    ],
+                    'extraPatterns' => [
+                         'POST login' => 'login'
+                    ]  
+                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'country'
+                    'controller' => 'v1/country'
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'city'
+                    'controller' => 'v1/city',
+                     'tokens' => [
+                        '{id}' => '<id:\\w+>'
+                    ]
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'customer'
+                    'controller' => 'v1/customer'
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'restaurant'
+                    'controller' => 'v1/restaurant'
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'services'
+                    'controller' => 'v1/services'
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'siteseen'
-                ]
+                    'controller' => 'v1/seen'
+                ]   
             ],        
         ],
         'request' => [

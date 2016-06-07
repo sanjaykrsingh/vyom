@@ -54,7 +54,7 @@ class UserSearch extends User
             // $query->where('0=1');
             return $dataProvider;
         }
-
+        $query->andWhere(['type' => '']);
         $query->andFilterWhere([
             'id' => $this->id,
             $this->tableName().'.status' => $this->status,

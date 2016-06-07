@@ -19,7 +19,7 @@ class CustomerSearch extends Customer
     {
         return [
             [['id'], 'integer'],
-            [['name', 'itinerary_id', 'mobile_no', 'email', 'day_description', 'created_at', 'updated_at'], 'safe'],
+            [['name', 'username', 'mobile_no', 'email', 'day_description', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -54,7 +54,7 @@ class CustomerSearch extends Customer
             // $query->where('0=1');
             return $dataProvider;
         }
-
+        $query->andWhere(['type' => 'customer']);
         $query->andFilterWhere([
             'id' => $this->id,
             'created_at' => $this->created_at,
@@ -62,7 +62,7 @@ class CustomerSearch extends Customer
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'itinerary_id', $this->itinerary_id])
+            ->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'mobile_no', $this->mobile_no])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'day_description', $this->day_description]);

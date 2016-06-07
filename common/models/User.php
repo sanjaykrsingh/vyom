@@ -120,7 +120,18 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+      
+        return static::findOne(['auth_key' => $token]);
+       // throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public static function loginByAccessToken($token, $type = null)
+    {
+        return static::findOne(['auth_key' => $token]);
+       // throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
 
     /**
@@ -297,8 +308,14 @@ class User extends ActiveRecord implements IdentityInterface
         if($this->id == 1){
             $this->status = self::STATUS_ACTIVE;
         }
+        if (parent::beforeSave($insert)) {
+        if ($this->isNewRecord) {
+            $this->auth_key = Yii::$app->getSecurity()->generateRandomString();
+        }
+        return true;
+    }
        
-        return parent::beforeSave($insert);
+        return false;
     }
     
     /**
@@ -325,4 +342,5 @@ class User extends ActiveRecord implements IdentityInterface
         $roles_permission = \Yii::$app->authManager->getRolesByUser($id);
         return $roles_permission;
     }
+    
 }
