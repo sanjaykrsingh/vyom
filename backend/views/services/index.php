@@ -32,17 +32,19 @@ $cities = $cityObj->getAllCities();
                 'value' => 'cities.name',                
                 'filter' => yii\helpers\ArrayHelper::map($cities , 'id', 'name')
             ],
-             'type',
+            
             'title',
             //'Description:ntext',
-            'open_time',
-            'close_time',  
+            //'open_time',
+            //'close_time',
+            'type',
+            
             'address1',
             // 'address2',
              'phone_no1',
             // 'phone_no2',
             // 'latitude',
-            // 'longitude',
+             //'longitude',
             // 'created_at',
             // 'updated_at',
 
