@@ -54,9 +54,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 Image <br/>
                 <?php if(!empty($bigImageList)){ foreach($bigImageList as $val){ ?> 
                         <div class="file-preview-frame file-preview-initial" id="preview-1464429871093-init_1" data-fileindex="init_1" data-template="image"><div class="kv-file-content">
-                                <img src="../../<?= $val['path']?>" class="kv-preview-data file-preview-image" title="<?= $val['name']?>" alt="Earth.jpg" style="width:auto;height:120px;">
+                                <img src="./<?= $val['path']?>" class="kv-preview-data file-preview-image" title="<?= $val['name']?>" alt="<?= $val['name']?>" style="width:auto;height:120px;">
                             </div><div class="file-thumbnail-footer">
-                                <div class="file-footer-caption" title="Earth.jpg"><?= $val['name']?></div>
+                                <div class="file-footer-caption" title="<?= $val['name']?>"><?= $val['name']?></div>
                                 <div class="file-thumb-progress hide"><div class="progress">
                                         <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
                                         <?= $val['name']?>    
@@ -78,9 +78,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 Small Image <br/>
                 <?php if(!empty($smallImageList)){ foreach($smallImageList as $val){ ?> 
                         <div class="file-preview-frame file-preview-initial" id="preview-1464429871093-init_1" data-fileindex="init_1" data-template="image"><div class="kv-file-content">
-                                <img src="../../<?= $val['path']?>" class="kv-preview-data file-preview-image" title="<?= $val['name']?>" alt="Earth.jpg" style="width:auto;height:90px;">
+                                <img src="./<?= $val['path']?>" class="kv-preview-data file-preview-image" title="<?= $val['name']?>" alt="<?= $val['name']?>" style="width:auto;height:90px;">
                             </div><div class="file-thumbnail-footer">
-                                <div class="file-footer-caption" title="Earth.jpg"><?= $val['name']?></div>
+                                <div class="file-footer-caption" title="<?= $val['name']?>"><?= $val['name']?></div>
                                 <div class="file-thumb-progress hide"><div class="progress">
                                         <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
                                         <?= $val['name']?>    

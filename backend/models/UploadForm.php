@@ -124,23 +124,28 @@ class UploadForm extends Model {
     }
     
     public function getUploadPath($reference_type) {
+        
         $upload_path = "";
         $upload_full_path = "";
+        $basePath = \Yii::$app->basePath . \common\models\SiteConfig::getConfigVal('_Relative_Upload_Path');
         if (strtolower($reference_type) == 'restaurant') {
-            $upload_path = \common\models\SiteConfig::getConfigVal('_Restaurant_Upload_Path');
-            $upload_full_path = \Yii::$app->basePath . $upload_path;
+           $upload_path = \common\models\SiteConfig::getConfigVal('_Restaurant_Upload_Path');
+            $upload_full_path = $basePath . $upload_path;
         }elseif (strtolower($reference_type) == 'services') {
             $upload_path = \common\models\SiteConfig::getConfigVal('_Services_Upload_Path');
-            $upload_full_path = \Yii::$app->basePath . $upload_path;
+            $upload_full_path = $basePath . $upload_path;
         }elseif (strtolower($reference_type) == 'city') {
             $upload_path = \common\models\SiteConfig::getConfigVal('_City_Upload_Path');
-            $upload_full_path = \Yii::$app->basePath . $upload_path;
+            $upload_full_path = $basePath . $upload_path;
+        }elseif (strtolower($reference_type) == 'siteseen') {
+            $upload_path = \common\models\SiteConfig::getConfigVal('_SiteSeen_Upload_Path');
+            $upload_full_path = $basePath . $upload_path;
         }
         
         
         if(empty($upload_path ) && empty($upload_full_path)){
             $upload_path = \common\models\SiteConfig::getConfigVal('_Upload_Path');
-            $upload_full_path = \Yii::$app->basePath . $upload_path;
+            $upload_full_path = $basePath . $upload_path;
         }
         
         return array('upload_path' => $upload_path,'upload_full_path' => $upload_full_path);

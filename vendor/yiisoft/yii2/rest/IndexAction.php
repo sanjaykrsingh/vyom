@@ -59,6 +59,7 @@ class IndexAction extends Action
 
         return new ActiveDataProvider([
             'query' => $modelClass::find(),
+            'pagination' => false
         ]);
     }
 }

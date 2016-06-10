@@ -83,11 +83,8 @@ class SiteConfig extends ActiveRecord
     
     public static function getConfigVal($key, $columns = 'value'){
         
-        if(self::$data && isset(self::$data->value)){
-            return self::$data->value;
-        }else{
-            self::$data= SiteConfig::find()->select($columns)->where('config_key ="'.$key.'"')->one();
-        }
-        return isset(self::$data->value)?self::$data->value:"";
+       $data= SiteConfig::find()->select($columns)->where('config_key ="'.$key.'"')->one();
+      
+        return isset($data->value)?$data->value:"";
     }
 }

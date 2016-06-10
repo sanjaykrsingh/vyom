@@ -14,7 +14,7 @@ class UserController extends ActiveController {
     public function actionLogin() {
         $model = new LoginForm();
         if ($model->load(Yii::$app->getRequest()->getBodyParams(), '') && $user = $model->login()) {
-            return ['access-token' => Yii::$app->user->identity->getAuthKey(), 'itinerary_id' => $user->username,'name'=> $user->name,'email' => $user->email,'mobile_no' => $user->mobile_no];
+            return ['access-token' => Yii::$app->user->identity->getAuthKey(), 'itinerary_id' => $user->username,'name'=> $user->name,'email' => $user->email,'mobile_no' => $user->mobile_no,'day_description' => json_decode($user->day_description,true),];
         
         } else {
             $model->validate();

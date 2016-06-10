@@ -7,6 +7,9 @@ use backend\assets\AssociateSellerAsset;
 AjaxLoaderAsset::register($this);
 /* @var $this \yii\web\View */
 /* @var $content string */
+use backend\assets\ImageUploadAsset;
+
+ImageUploadAsset::register($this);
 ?>
 
 <header class="main-header">

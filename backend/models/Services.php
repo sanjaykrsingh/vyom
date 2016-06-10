@@ -101,4 +101,40 @@ class Services extends \yii\db\ActiveRecord
     {
         return $this->hasOne(City::className(), ['id' => 'city_id']);
     }
+    
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getImages() {
+        return $this->hasMany(UploadedFile::className(), ['reference_id' => 'id'])
+                        ->andOnCondition(['reference_type' => 'Services'])->select(['filename','path']);
+    }
+
+    public function extraFields() {
+        return ['images'];
+    }
+
+    public function fields() {
+                return [
+            'id',
+            'type',
+            'name' =>'title',
+            'Description',
+            'open_time',
+            'close_time',
+            'address1',
+            'address2',
+            'phone_no1',
+            'phone_no2',
+            'latitude',
+            'longitude',
+            'images',
+            'city' => 'cities'        
+        ];
+
+        
+        
+    }
+
 }

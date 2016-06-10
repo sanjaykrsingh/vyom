@@ -2,13 +2,6 @@
 
 use yii\helpers\Html;
 
-use backend\assets\ImageUploadAsset;
-
-/* @var $this yii\web\View */
-/* @var $model backend\models\Restaurant */
-
-ImageUploadAsset::register($this);
-
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
     'modelClass' => 'Site Seen',
 ]) . ' ' . $model->title;
