@@ -43,8 +43,8 @@ $cities = $cityObj->getAllCities();
             // 'address2',
              'phone_no1',
             // 'phone_no2',
-             'latitude',
-             'longitude',
+            // 'latitude',
+             //'longitude',
             // 'created_at',
             // 'updated_at',
 
