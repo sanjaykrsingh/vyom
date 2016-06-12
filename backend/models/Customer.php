@@ -149,4 +149,13 @@ class Customer extends \yii\db\ActiveRecord
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
     
+    public function fields() {
+                return [
+            'name',
+            'itineraryId'=>'username',
+            'email',
+            'day_description'
+        ];
+    }
+    
 }

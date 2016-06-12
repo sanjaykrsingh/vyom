@@ -13,15 +13,10 @@ use \yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $city_id
  * @property string $title
- * @property string $valid_from
- * @property string $valid_to
- * @property double $retail_price
- * @property double $discounted_price
  * @property string $Description
  * @property string $open_time
  * @property string $close_time
- * @property string $address1
- * @property string $address2
+ * @property string $address
  * @property string $phone_no1
  * @property string $phone_no2
  * @property string $email
@@ -67,12 +62,11 @@ class SiteSeen extends \yii\db\ActiveRecord
             [['city_id', 'title'], 'required'],
             [['city_id'], 'integer'],
             [['email'], 'email'],
-            [['valid_from', 'valid_to', 'created_at', 'updated_at'], 'safe'],
-            [['retail_price', 'discounted_price'], 'number'],
+            [['created_at', 'updated_at'], 'safe'],
             [['Description'], 'string'],
             [['title'], 'string', 'max' => 1024],
             [['open_time', 'close_time'], 'string', 'max' => 50],
-            [['address1', 'address2', 'email'], 'string', 'max' => 100],
+            [['address', 'email'], 'string', 'max' => 100],
             [['phone_no1', 'phone_no2'], 'string', 'max' => 11],
             [['latitude', 'longitude'], 'number']
         ];
@@ -87,15 +81,10 @@ class SiteSeen extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'city_id' => Yii::t('app', 'City ID'),
             'title' => Yii::t('app', 'name'),
-            'valid_from' => Yii::t('app', 'Valid From'),
-            'valid_to' => Yii::t('app', 'Valid To'),
-            'retail_price' => Yii::t('app', 'Retail Price'),
-            'discounted_price' => Yii::t('app', 'Discounted Price'),
             'Description' => Yii::t('app', 'Description'),
             'open_time' => Yii::t('app', 'Open Time'),
             'close_time' => Yii::t('app', 'Close Time'),
-            'address1' => Yii::t('app', 'Address1'),
-            'address2' => Yii::t('app', 'Address2'),
+            'address' => Yii::t('app', 'Address'),
             'phone_no1' => Yii::t('app', 'Phone No1'),
             'phone_no2' => Yii::t('app', 'Phone No2'),
             'email' => Yii::t('app', 'Email'),
@@ -114,4 +103,44 @@ class SiteSeen extends \yii\db\ActiveRecord
     {
         return $this->hasOne(City::className(), ['id' => 'city_id']);
     }
+    
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getImages() {
+        return $this->hasMany(UploadedFile::className(), ['reference_id' => 'id'])
+                        ->andOnCondition(['reference_type' => 'SiteSeen'])->select(['type','filename','path']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getActivities() {
+        return $this->hasMany(Activities::className(), ['site_seen_id' => 'id']);
+    }
+
+    public function extraFields() {
+        return ['images'];
+    }
+
+    public function fields() {
+                return [
+            'id',
+            'name' =>'title',
+            'Description',
+            'email',        
+            'open_time',
+            'close_time',
+            'address',
+            'phone_no1',
+            'phone_no2',
+            'latitude',
+            'longitude',
+            'images',
+            'city' => 'cities',
+            'activities'        
+        ];
+    }
+
 }

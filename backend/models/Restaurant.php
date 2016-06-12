@@ -16,8 +16,7 @@ use \yii\db\ActiveRecord;
  * @property string $type
  * @property string $title
  * @property string $Description
- * @property string $address1
- * @property string $address2
+ * @property string $address
  * @property string $phone_no1
  * @property string $phone_no2
  * @property string $latitude
@@ -60,12 +59,12 @@ class Restaurant extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['city_id', 'type', 'title', 'address1'], 'required'],
+            [['city_id', 'type', 'title', 'address'], 'required'],
             [['city_id'], 'integer'],
             [['type', 'Description'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 1024],
-            [['open_time','close_time','address1', 'address2'], 'string'],
+            [['open_time','close_time','address'], 'string'],
             [['phone_no1', 'phone_no2'], 'string', 'max' => 12],
             [['latitude', 'longitude'], 'number']
         ];
@@ -84,8 +83,7 @@ class Restaurant extends \yii\db\ActiveRecord
             'Description' => Yii::t('app', 'Description'),
             'open_time' => Yii::t('app', 'Open time'),
             'close_time' => Yii::t('app', 'Close time'),
-            'address1' => Yii::t('app', 'Address1'),
-            'address2' => Yii::t('app', 'Address2'),
+            'address' => Yii::t('app', 'Address'),
             'phone_no1' => Yii::t('app', 'Phone No1'),
             'phone_no2' => Yii::t('app', 'Phone No2'),
             'latitude' => Yii::t('app', 'Latitude'),
@@ -107,7 +105,7 @@ class Restaurant extends \yii\db\ActiveRecord
      */
     public function getImages() {
         return $this->hasMany(UploadedFile::className(), ['reference_id' => 'id'])
-                        ->andOnCondition(['reference_type' => 'Restaurant'])->select(['filename','path']);
+                        ->andOnCondition(['reference_type' => 'Restaurant'])->select(['type','filename','path']);
     }
 
     public function extraFields() {
@@ -122,8 +120,7 @@ class Restaurant extends \yii\db\ActiveRecord
             'Description',
             'open_time',
             'close_time',
-            'address1',
-            'address2',
+            'address',
             'phone_no1',
             'phone_no2',
             'latitude',

@@ -39,8 +39,7 @@ $cities = $cityObj->getAllCities();
             //'close_time',
             'type',
             
-            'address1',
-            // 'address2',
+            'address',
              'phone_no1',
             // 'phone_no2',
             // 'latitude',

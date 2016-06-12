@@ -21,14 +21,6 @@ $cities = $cityObj->getAllCities();
 
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-	    
-    <?= $form->field($model, 'valid_from') ?>
-    <?= $form->field($model, 'valid_to') ?>
-    <?= $form->field($model, 'retail_price') ?>
-    <?= $form->field($model, 'discounted_price') ?>
-    
-	
-
 
     <?= $form->field($model, 'Description')->textarea(['rows' => 6]) ?>
 
@@ -37,9 +29,7 @@ $cities = $cityObj->getAllCities();
 
     <?= $form->field($model, 'close_time')->textInput(['maxlength' => true]) ?>
     
-    <?= $form->field($model, 'address1')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'address2')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'address')->textarea(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'phone_no1')->textInput(['maxlength' => true]) ?>
 

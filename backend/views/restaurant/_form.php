@@ -32,9 +32,7 @@ $model->type = 'Restaurant';
 
     <?= $form->field($model, 'close_time')->textInput(['maxlength' => true]) ?>
     
-    <?= $form->field($model, 'address1')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'address2')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'address')->textarea(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'phone_no1')->textInput(['maxlength' => true]) ?>
 

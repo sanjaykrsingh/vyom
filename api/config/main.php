@@ -48,31 +48,28 @@ return [
                  ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'v1/country'
+                    'controller' => 'v1/city'
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'v1/city',
-                     'tokens' => [
-                        '{id}' => '<id:\\w+>'
-                    ]
+                    'controller' => 'v1/itinerary'
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'v1/customer'
+                    'controller' => 'v1/restaurant',
+                    'extraPatterns' => ['GET search' => 'search']
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'v1/restaurant'
+                    'controller' => 'v1/services',
+                    'extraPatterns' => ['GET search' => 'search']
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'v1/services'
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'v1/seen'
-                ]   
+                    'controller' => 'v1/seen',
+                    'extraPatterns' => ['GET search' => 'search']
+                ] ,
+                
             ],        
         ],
         'request' => [

@@ -19,7 +19,7 @@ class RestaurantSearch extends Restaurant
     {
         return [
             [['id', 'city_id'], 'integer'],
-            [['type', 'title', 'Description', 'address1', 'address2', 'phone_no1', 'phone_no2', 'latitude', 'longitude', 'created_at', 'updated_at'], 'safe'],
+            [['type', 'title', 'Description', 'address', 'phone_no1', 'phone_no2', 'latitude', 'longitude', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -67,8 +67,7 @@ class RestaurantSearch extends Restaurant
         $query->andFilterWhere(['like', 'type', $this->type])
             ->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'Description', $this->Description])
-            ->andFilterWhere(['like', 'address1', $this->address1])
-            ->andFilterWhere(['like', 'address2', $this->address2])
+            ->andFilterWhere(['like', 'address', $this->address])
             ->andFilterWhere(['like', 'phone_no1', $this->phone_no1])
             ->andFilterWhere(['like', 'phone_no2', $this->phone_no2])
             ->andFilterWhere(['like', 'latitude', $this->latitude])

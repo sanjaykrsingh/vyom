@@ -19,7 +19,7 @@ class SiteSeenSearch extends SiteSeen
     {
         return [
             [['id', 'city_id'], 'integer'],
-            [['title', 'Description', 'open_time', 'close_time', 'address1', 'address2', 'phone_no1', 'phone_no2', 'email', 'latitude', 'longitude', 'created_at', 'updated_at'], 'safe'],
+            [['title', 'Description', 'open_time', 'close_time', 'address', 'phone_no1', 'phone_no2', 'email', 'latitude', 'longitude', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -68,8 +68,7 @@ class SiteSeenSearch extends SiteSeen
             ->andFilterWhere(['like', 'Description', $this->Description])
             ->andFilterWhere(['like', 'open_time', $this->open_time])
             ->andFilterWhere(['like', 'close_time', $this->close_time])
-            ->andFilterWhere(['like', 'address1', $this->address1])
-            ->andFilterWhere(['like', 'address2', $this->address2])
+            ->andFilterWhere(['like', 'address', $this->address])
             ->andFilterWhere(['like', 'phone_no1', $this->phone_no1])
             ->andFilterWhere(['like', 'phone_no2', $this->phone_no2])
             ->andFilterWhere(['like', 'email', $this->email])
