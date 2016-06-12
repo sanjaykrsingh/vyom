@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\SiteSeenSearch */
@@ -47,21 +48,36 @@ $cities = $cityObj->getAllCities();
             // 'created_at',
             // 'updated_at',
 
-            [
+           [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{update}{view}{new_activities}{delete}',
-                'controller' => 'SiteSeen',
+                'template' => '{update} {view} {delete} {new_action1}',
                 'buttons' => [
-                    'new_activities' => function ($url, $model) {
-                        return Html::a(
-                                        '<span class="glyphicon glyphicon-arrow-download"></span>', ['another-controller/anotner-action', 'id' => $model->id], [
-                                    'title' => 'New Activities'
-                                        ]
-                        );
+                    'new_action1' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-plus"></span>', $url, [
+                                    'title' => Yii::t('app', 'New Action1'),
+                        ]);
                     }
-                        ]
+                        ],
+                        'urlCreator' => function ($action, $model, $key, $index) {
+                    if ($action === 'new_action1') {
+                        return Url::to(['activities/create', 'id' => $model->id]);
+                        
+                    }
+                    if ($action === 'update') {
+                        return Url::to(['update', 'id' => $model->id]) ;
+                        
+                    }
+                    if ($action === 'view') {
+                        return Url::to(['view', 'id' => $model->id]);
+                        
+                    }
+                    if ($action === 'delete') {
+                        return Url::to(['delete', 'id' => $model->id]);
+                        
+                    }
+                }
                     ],
-                ],
+        ],
     ]); ?>
 
 

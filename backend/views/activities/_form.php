@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Activities */
@@ -24,12 +25,12 @@ use yii\widgets\ActiveForm;
    <?php endfor;?>
 </div>       
 <?php endif; ?>
-<div class="form-group">
+<div class="form-group" style="height: auto;min-height: 400px;">
     <?php $form = ActiveForm::begin(['id' => 'activitiesForm']); ?>
 <input type="hidden" name="site_seen_id" value="<?=$site_seen_id;?>" />
   
     <div class="form-group" style="height: auto;">
-        <div class="col-xs-3">
+        <div class="col-xs-3 nopadding">
             Name
         </div>
         <div class="col-xs-2">
@@ -52,7 +53,7 @@ use yii\widgets\ActiveForm;
         for($i =0; $i < $co; $i++ ):
     ?>
     <div class="form-group">
-        <div class="col-xs-3">
+        <div class="col-xs-3 nopadding">
             <input type="text"  class="form-control" name="Activities[name][]" value="<?=$data[$i]["Activities"]["name"]; ?>">
         </div>
         <div class="col-xs-2 dateContainer">
@@ -85,7 +86,7 @@ use yii\widgets\ActiveForm;
     <?php endfor; endif; ?>
     <!-- The template for adding new field -->
     <div class="form-group hide" id="taskTemplate">
-        <div class="col-xs-3">
+        <div class="col-xs-3 nopadding">
             <input type="text"  class="form-control" name="Activities[name][]">
         </div>
         <div class="col-xs-2 dateContainer">
@@ -114,7 +115,9 @@ use yii\widgets\ActiveForm;
     <div class="form-group" >
         <div class="col-xs-5" style="margin-top: 10px;">
             <button type="submit" class="btn btn-default" id="AddValue">Submit</button>
+            <a href="<?=Url::to(['site-seen/index']);?>" class="btn btn-default">Cancel</a>
         </div>
     </div>
+    
     <?php ActiveForm::end(); ?>
 </div>

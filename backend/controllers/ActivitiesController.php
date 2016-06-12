@@ -97,7 +97,7 @@ class ActivitiesController extends Controller {
             }
             
         }
-        print_r($data);
+       // print_r($data);
             
        // print_r($errors);
 
