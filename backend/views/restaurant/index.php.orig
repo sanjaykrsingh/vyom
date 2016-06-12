@@ -3,23 +3,24 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\SiteSeenSearch */
+/* @var $searchModel backend\models\RestaurantSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Site Seens');
+$this->title = Yii::t('app', 'Restaurants');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-seen-index">
+
+<div class="restaurant-index">
 
     
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Site Seen'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Restaurant'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-   <?php
+    <?php
 $cityObj = new backend\models\City();
 $cities = $cityObj->getAllCities();
 ?>
@@ -33,36 +34,30 @@ $cities = $cityObj->getAllCities();
                 'value' => 'cities.name',                
                 'filter' => yii\helpers\ArrayHelper::map($cities , 'id', 'name')
             ],
-            
+            'type',
             'title',
+<<<<<<< HEAD
             //'Description:ntext',
             'open_time',
-            'close_time',
+            'close_time',            
+=======
+         //   'Description:ntext',
+           // 'open_time',
+           // 'close_time',
+            'type',
+            
+>>>>>>> 1fff3d2e54d0911d8415cc201872795ceebeb82f
             'address1',
             // 'address2',
              'phone_no1',
             // 'phone_no2',
             // 'latitude',
-            // 'longitude',
+             //'longitude',
             // 'created_at',
             // 'updated_at',
 
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{update}{view}{new_activities}{delete}',
-                'controller' => 'SiteSeen',
-                'buttons' => [
-                    'new_activities' => function ($url, $model) {
-                        return Html::a(
-                                        '<span class="glyphicon glyphicon-arrow-download"></span>', ['another-controller/anotner-action', 'id' => $model->id], [
-                                    'title' => 'New Activities'
-                                        ]
-                        );
-                    }
-                        ]
-                    ],
-                ],
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
     ]); ?>
-
 
 </div>

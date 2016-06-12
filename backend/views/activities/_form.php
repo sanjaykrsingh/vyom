@@ -7,17 +7,28 @@ use yii\widgets\ActiveForm;
 /* @var $model backend\models\Activities */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
-    <?php $form = ActiveForm::begin(['id' => 'activitiesForm']); ?>
-<div class="error"> 
-   <?php if(!empty($errors)):
-        $co= count($errors); 
-        for($i =0; $i < $co; $i++ ):
+ <?php if(!empty($errors)):
+        $co= count($errors); ?>
+<div class="error-summary">
+<?php        for($i =0; $i < $co; $i++ ):
+         if(!empty($errors[$i])):  
+          echo "<br>Row ".($i+1)." - ";    
     ?>
-    <?=$errors[$i]['Name'][$i]?>
-    <?php endfor; endif; ?>
-</div>
-    <div class="form-group">
+    <?php if(isset($errors[$i]['name'][0])){ echo $errors[$i]['name'][0].", ";}?>
+    <?php if(isset($errors[$i]['valid_from'][0])){ echo $errors[$i]['valid_from'][0].", ";}?>
+    <?php if(isset($errors[$i]['valid_to'][0])){ echo $errors[$i]['valid_to'][0].", ";}?>
+    <?php if(isset($errors[$i]['retail_price'][0])){ echo $errors[$i]['retail_price'][0].", ";}?>
+    <?php if(isset($errors[$i]['discounted_price'][0])){ echo $errors[$i]['discounted_price'][0]."";}?>
+   <?php else:$co++;
+       endif; ?>
+   <?php endfor;?>
+</div>       
+<?php endif; ?>
+<div class="form-group">
+    <?php $form = ActiveForm::begin(['id' => 'activitiesForm']); ?>
+<input type="hidden" name="site_seen_id" value="<?=$site_seen_id;?>" />
+  
+    <div class="form-group" style="height: auto;">
         <div class="col-xs-3">
             Name
         </div>
@@ -106,3 +117,4 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
     <?php ActiveForm::end(); ?>
+</div>

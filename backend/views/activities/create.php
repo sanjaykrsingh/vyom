@@ -12,7 +12,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="activities-create">
     <?= $this->render('_form', [
-        'model' => $model,'data'=> $data,'errors' => $errors
-    ]) ?>
+        'model' => $model,'data'=> $data,'errors' => $errors,  'site_seen_id' =>$site_seen_id    ]) ?>
 
 </div>
