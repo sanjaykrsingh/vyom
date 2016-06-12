@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 08, 2016 at 02:42 AM
+-- Generation Time: Jun 12, 2016 at 09:52 AM
 -- Server version: 5.5.49-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.17
 
@@ -19,6 +19,39 @@ SET time_zone = "+00:00";
 --
 -- Database: `vyom`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `activities`
+--
+
+CREATE TABLE IF NOT EXISTS `activities` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `site_seen_id` int(10) unsigned NOT NULL,
+  `name` varchar(1024) NOT NULL,
+  `valid_from` date NOT NULL,
+  `valid_to` date NOT NULL,
+  `retail_price` float NOT NULL,
+  `discounted_price` float NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
+
+--
+-- Dumping data for table `activities`
+--
+
+INSERT INTO `activities` (`id`, `site_seen_id`, `name`, `valid_from`, `valid_to`, `retail_price`, `discounted_price`, `created_at`, `updated_at`) VALUES
+(32, 1, 'sdfsd', '2016-06-09', '2016-06-14', 22, 22, '2016-06-11 12:33:06', '2016-06-11 07:03:06'),
+(33, 1, 'zxcvdsvd', '2016-06-23', '2016-06-30', 2222, 222, '2016-06-11 12:33:07', '2016-06-11 07:03:07'),
+(38, 3, 'sadsad', '2016-06-15', '2016-06-08', 2321, 12321, '2016-06-11 12:38:26', '2016-06-11 07:08:26'),
+(39, 3, 'asdsad', '2016-06-29', '2016-06-29', 12321, 21321, '2016-06-11 12:38:26', '2016-06-11 07:08:26'),
+(40, 4, 'afsfsadfsdaf', '2016-06-15', '2016-06-23', 22, 34, '2016-06-11 12:39:14', '2016-06-11 07:09:14'),
+(41, 2, 'sddfgfdg', '2016-06-14', '2016-06-12', 324, 23423, '2016-06-12 01:03:53', '2016-06-11 19:33:53'),
+(42, 2, 'asdwqe', '2016-06-14', '2016-06-14', 213, 213214, '2016-06-12 01:03:53', '2016-06-11 19:33:53'),
+(43, 2, 'sdfsdf', '2016-06-30', '2016-06-30', 1123, 123213, '2016-06-12 01:03:53', '2016-06-11 19:33:53');
 
 -- --------------------------------------------------------
 
@@ -440,7 +473,7 @@ CREATE TABLE IF NOT EXISTS `city` (
   `latitude` varchar(20) DEFAULT NULL,
   `longitude` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
 
 --
 -- Dumping data for table `city`
@@ -491,7 +524,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `icon` varchar(255) DEFAULT 'fa fa-circle-o',
   PRIMARY KEY (`id`),
   KEY `parent` (`parent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `menu`
@@ -550,8 +583,7 @@ CREATE TABLE IF NOT EXISTS `restaurant` (
   `Description` text NOT NULL,
   `open_time` varchar(50) NOT NULL,
   `close_time` varchar(50) NOT NULL,
-  `address1` varchar(100) NOT NULL,
-  `address2` varchar(100) DEFAULT NULL,
+  `address` varchar(512) NOT NULL,
   `phone_no1` varchar(11) NOT NULL,
   `phone_no2` varchar(11) DEFAULT NULL,
   `latitude` varchar(20) NOT NULL,
@@ -559,14 +591,15 @@ CREATE TABLE IF NOT EXISTS `restaurant` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `restaurant`
 --
 
-INSERT INTO `restaurant` (`id`, `city_id`, `type`, `title`, `Description`, `open_time`, `close_time`, `address1`, `address2`, `phone_no1`, `phone_no2`, `latitude`, `longitude`, `created_at`, `updated_at`) VALUES
-(3, 12, 'Restaurant', 'Restaurant[title]', 'Restaurant[Description]', 'Restaurant[open_time]', 'Restaurant[close_time]', 'Restaurant[address1]', 'Restaurant[address2]', '1234567890', '1234567890', '21.21321', '23.3242', '2016-06-07 08:18:39', '2016-06-07 02:48:39');
+INSERT INTO `restaurant` (`id`, `city_id`, `type`, `title`, `Description`, `open_time`, `close_time`, `address`, `phone_no1`, `phone_no2`, `latitude`, `longitude`, `created_at`, `updated_at`) VALUES
+(3, 12, 'Restaurant', 'Restaurant[title]', 'Restaurant[Description]', 'Restaurant[open_time]', 'Restaurant[close_time]', 'Restaurant[address1]', '1234567890', '1234567890', '21.21321', '23.3242', '2016-06-07 08:18:39', '2016-06-09 01:52:21'),
+(4, 22, 'Restaurant', 'zdsadsa', 'kjbkjb', 'mnbmb', 'b', 'm', 'mm', 'mb', '21312321', '21423523', '2016-06-12 01:51:28', '2016-06-11 20:21:28');
 
 -- --------------------------------------------------------
 
@@ -586,8 +619,7 @@ CREATE TABLE IF NOT EXISTS `services` (
   `Description` text NOT NULL,
   `open_time` varchar(50) NOT NULL,
   `close_time` varchar(50) NOT NULL,
-  `address1` varchar(100) NOT NULL,
-  `address2` varchar(100) DEFAULT NULL,
+  `address` varchar(512) NOT NULL,
   `phone_no1` varchar(11) NOT NULL,
   `phone_no2` varchar(11) DEFAULT NULL,
   `latitude` varchar(20) NOT NULL,
@@ -595,16 +627,16 @@ CREATE TABLE IF NOT EXISTS `services` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `services`
 --
 
-INSERT INTO `services` (`id`, `city_id`, `type`, `title`, `valid_from`, `valid_to`, `retail_price`, `discounted_price`, `Description`, `open_time`, `close_time`, `address1`, `address2`, `phone_no1`, `phone_no2`, `latitude`, `longitude`, `created_at`, `updated_at`) VALUES
-(1, 9, 'Taxi services', 'Services[title]', '0000-00-00', '0000-00-00', 7, 4, 'Services[Description]', 'Services[open_time]', 'Services[close_time]', 'Services[address1]', 'Services[address2]', '1234567890', '1234567890', '4', '4', '2016-06-05 09:43:55', '2016-06-05 04:26:40'),
-(2, 9, 'Taxi services', 'Services[title]', '0000-00-00', '0000-00-00', 67, 45, 'Services[Description]', 'Services[open_time]', 'Services[close_time]', 'Services[address1]', 'Services[address2]', '1234567890', '1234567890', '3243', '34', '2016-06-05 10:27:28', '2016-06-05 04:57:28'),
-(3, 9, 'Taxi services', 'Services[title]', '0000-00-00', '0000-00-00', 0, 0, 'Services[Description]', 'Services[open_time]', 'Services[close_time]', 'Services[address1]', 'Services[address2]', '1234567890', '1234567890', '213', '21321', '2016-06-05 10:42:51', '2016-06-05 05:12:51');
+INSERT INTO `services` (`id`, `city_id`, `type`, `title`, `valid_from`, `valid_to`, `retail_price`, `discounted_price`, `Description`, `open_time`, `close_time`, `address`, `phone_no1`, `phone_no2`, `latitude`, `longitude`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Taxi services', 'Services[title]', '0000-00-00', '0000-00-00', 7, 4, 'Services[Description]', 'Services[open_time]', 'Services[close_time]', 'Services[address1]', '1234567890', '1234567890', '4', '4', '2016-06-05 09:43:55', '2016-06-11 22:31:07'),
+(2, 9, 'Taxi services', 'Services[title]', '0000-00-00', '0000-00-00', 67, 45, 'Services[Description]', 'Services[open_time]', 'Services[close_time]', 'Services[address1]', '1234567890', '1234567890', '3243', '34', '2016-06-05 10:27:28', '2016-06-05 04:57:28'),
+(3, 9, 'Taxi services', 'Services[title]', '0000-00-00', '0000-00-00', 0, 0, 'Services[Description]', 'Services[open_time]', 'Services[close_time]', 'Services[address1]', '1234567890', '1234567890', '213', '21321', '2016-06-05 10:42:51', '2016-06-05 05:12:51');
 
 -- --------------------------------------------------------
 
@@ -621,18 +653,19 @@ CREATE TABLE IF NOT EXISTS `site_config` (
   `created_at` datetime DEFAULT NULL,
   `modified_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `site_config`
 --
 
 INSERT INTO `site_config` (`id`, `config_key`, `value`, `label`, `type`, `created_at`, `modified_at`) VALUES
-(1, '_Restaurant_Upload_Path', '/../upload/restaurants/', 'Path for Restaurant image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31'),
-(2, '_Services_Upload_Path', '/../upload/services/', 'Path for Services image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31'),
-(3, '_Upload_Path', '/../upload/', 'Path for Restaurant image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31'),
-(4, '_SiteSeen_Upload_Path', '/../upload/site-seen/', 'Path for site seen image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31'),
-(5, '_City_Upload_Path', '/../upload/city/', 'Path for City image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31');
+(1, '_Restaurant_Upload_Path', '/upload/restaurants/', 'Path for Restaurant image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31'),
+(2, '_Services_Upload_Path', '/upload/services/', 'Path for Services image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31'),
+(3, '_Upload_Path', '/upload/', 'Path for Restaurant image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31'),
+(4, '_SiteSeen_Upload_Path', '/upload/site-seen/', 'Path for site seen image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31'),
+(5, '_City_Upload_Path', '/upload/city/', 'Path for City image', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31'),
+(6, '_Relative_Upload_Path', '/web/', 'Relative path after base path', 'Custom', '2016-05-26 08:43:47', '2016-05-28 09:07:31');
 
 -- --------------------------------------------------------
 
@@ -644,15 +677,10 @@ CREATE TABLE IF NOT EXISTS `site_seen` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `city_id` int(10) unsigned NOT NULL,
   `title` varchar(1024) NOT NULL,
-  `valid_from` date NOT NULL,
-  `valid_to` date NOT NULL,
-  `retail_price` float NOT NULL,
-  `discounted_price` float NOT NULL,
   `Description` text NOT NULL,
   `open_time` varchar(50) NOT NULL,
   `close_time` varchar(50) NOT NULL,
-  `address1` varchar(100) NOT NULL,
-  `address2` varchar(100) DEFAULT NULL,
+  `address` varchar(512) NOT NULL,
   `phone_no1` varchar(11) NOT NULL,
   `phone_no2` varchar(11) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
@@ -661,15 +689,18 @@ CREATE TABLE IF NOT EXISTS `site_seen` (
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `site_seen`
 --
 
-INSERT INTO `site_seen` (`id`, `city_id`, `title`, `valid_from`, `valid_to`, `retail_price`, `discounted_price`, `Description`, `open_time`, `close_time`, `address1`, `address2`, `phone_no1`, `phone_no2`, `email`, `latitude`, `longitude`, `created_at`, `updated_at`) VALUES
-(1, 9, 'Services[title]', '0000-00-00', '0000-00-00', 7, 4, 'Services[Description]', 'Services[open_time]', 'Services[close_time]', 'Services[address1]', 'Services[address2]', '1234567890', '1234567890', 'example@example.com', '4', '4', '2016-06-05 09:43:55', '2016-06-05 05:22:17'),
-(2, 9, 'Services[title]', '0000-00-00', '0000-00-00', 67, 45, 'Services[Description]', 'Services[open_time]', 'Services[close_time]', 'Services[address1]', 'Services[address2]', '1234567890', '1234567890', NULL, '3243', '34', '2016-06-05 10:27:28', '2016-06-05 04:57:28');
+INSERT INTO `site_seen` (`id`, `city_id`, `title`, `Description`, `open_time`, `close_time`, `address`, `phone_no1`, `phone_no2`, `email`, `latitude`, `longitude`, `created_at`, `updated_at`) VALUES
+(1, 9, 'Services[title]', 'Services[Description]', 'Services[open_time]', 'Services[close_time]', 'Services[address1]', '1234567890', '1234567890', 'example@example.com', '4', '4', '2016-06-05 09:43:55', '2016-06-09 01:56:02'),
+(2, 9, 'Services[title]', 'Services[Description]', 'Services[open_time]', 'Services[close_time]', 'Services[address1]', '1234567890', '1234567890', NULL, '3243', '34', '2016-06-05 10:27:28', '2016-06-05 04:57:28'),
+(3, 25, 'SiteSeen[title]', 'SiteSeen[Description]', 'SiteSeen[open_time]', 'SiteSeen[close_time]', 'SiteSeen[address1]', '1234567890', '1234567890', 'example@example.com', '23423', '23423', '2016-06-12 02:28:00', '2016-06-11 21:00:33'),
+(4, 23, 'asvfdjhasv', 'bmvbdsmbv', '9:00 AM', '7:00 PM', 'kgkjgjk', '', '', '', '21', '22', '2016-06-12 03:46:06', '2016-06-11 22:16:31'),
+(5, 2, 'SiteSeen[title]', 'SiteSeen[Description]', 'SiteSeen[open_time]', 'SiteSeen[close_time]', '', '1234567890', '1234567890', 'example@example.com', '1223', '12', '2016-06-12 04:00:11', '2016-06-11 22:30:31');
 
 -- --------------------------------------------------------
 
@@ -689,7 +720,89 @@ CREATE TABLE IF NOT EXISTS `uploaded_file` (
   `cover_image` tinyint(1) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=121 ;
+
+--
+-- Dumping data for table `uploaded_file`
+--
+
+INSERT INTO `uploaded_file` (`id`, `reference_id`, `reference_type`, `name`, `filename`, `size`, `path`, `type`, `cover_image`, `created_at`) VALUES
+(1, 3, 'Restaurant', '3.jpg', '31465500141-big.jpg', 273710, '/upload/restaurants/31465500141-big.jpg', 'Big', 1, '2016-06-09 07:22:21'),
+(2, 3, 'Restaurant', 'download.jpg', 'download1465500141-big.jpg', 10708, '/upload/restaurants/download1465500141-big.jpg', 'Big', 1, '2016-06-09 07:22:21'),
+(3, 3, 'Restaurant', 'download (1).jpg', 'download (1)1465500141-big.jpg', 7008, '/upload/restaurants/download (1)1465500141-big.jpg', 'Big', 1, '2016-06-09 07:22:21'),
+(4, 3, 'Restaurant', 'index.jpeg', 'index1465500141-big.jpeg', 4332, '/upload/restaurants/index1465500141-big.jpeg', 'Big', 1, '2016-06-09 07:22:21'),
+(5, 3, 'Restaurant', 'screenshot2.png', 'screenshot21465500141-big.png', 95084, '/upload/restaurants/screenshot21465500141-big.png', 'Big', 1, '2016-06-09 07:22:21'),
+(6, 3, 'Restaurant', 'setting.png', 'setting1465500141-big.png', 504470, '/upload/restaurants/setting1465500141-big.png', 'Big', 1, '2016-06-09 07:22:21'),
+(7, 3, 'Restaurant', 'download.jpg', 'download1465500141-small.jpg', 10708, '/upload/restaurants/download1465500141-small.jpg', 'Small', 0, '2016-06-09 07:22:21'),
+(8, 3, 'Restaurant', 'download (1).jpg', 'download (1)1465500141-small.jpg', 7008, '/upload/restaurants/download (1)1465500141-small.jpg', 'Small', 0, '2016-06-09 07:22:21'),
+(9, 3, 'Restaurant', 'index.jpeg', 'index1465500141-small.jpeg', 4332, '/upload/restaurants/index1465500141-small.jpeg', 'Small', 0, '2016-06-09 07:22:21'),
+(10, 3, 'Restaurant', 'screenshot2.png', 'screenshot21465500141-small.png', 95084, '/upload/restaurants/screenshot21465500141-small.png', 'Small', 0, '2016-06-09 07:22:21'),
+(11, 3, 'Restaurant', 'setting.png', 'setting1465500141-small.png', 504470, '/upload/restaurants/setting1465500141-small.png', 'Small', 0, '2016-06-09 07:22:21'),
+(36, 1, 'City', '3.jpg', '31465500385-big.jpg', 273710, '/upload/city/31465500385-big.jpg', 'Big', 1, '2016-06-09 07:26:25'),
+(37, 1, 'City', 'download.jpg', 'download1465500385-big.jpg', 10708, '/upload/city/download1465500385-big.jpg', 'Big', 1, '2016-06-09 07:26:25'),
+(42, 1, 'City', 'download.jpg', 'download1465500385-small.jpg', 10708, '/upload/city/download1465500385-small.jpg', 'Small', 0, '2016-06-09 07:26:25'),
+(43, 1, 'City', 'download (1).jpg', 'download (1)1465500385-small.jpg', 7008, '/upload/city/download (1)1465500385-small.jpg', 'Small', 0, '2016-06-09 07:26:25'),
+(45, 1, 'City', 'screenshot2.png', 'screenshot21465500385-small.png', 95084, '/upload/city/screenshot21465500385-small.png', 'Small', 0, '2016-06-09 07:26:25'),
+(56, 4, 'Restaurant', '3.jpg', '31465696288-big.jpg', 273710, '/upload/restaurants/31465696288-big.jpg', 'Big', 1, '2016-06-12 01:51:28'),
+(57, 4, 'Restaurant', 'download.jpg', 'download1465696288-big.jpg', 10708, '/upload/restaurants/download1465696288-big.jpg', 'Big', 1, '2016-06-12 01:51:28'),
+(58, 4, 'Restaurant', 'download (1).jpg', 'download (1)1465696288-big.jpg', 7008, '/upload/restaurants/download (1)1465696288-big.jpg', 'Big', 1, '2016-06-12 01:51:28'),
+(59, 4, 'Restaurant', 'index.jpeg', 'index1465696288-big.jpeg', 4332, '/upload/restaurants/index1465696288-big.jpeg', 'Big', 1, '2016-06-12 01:51:28'),
+(60, 4, 'Restaurant', 'screenshot2.png', 'screenshot21465696288-big.png', 95084, '/upload/restaurants/screenshot21465696288-big.png', 'Big', 1, '2016-06-12 01:51:28'),
+(61, 4, 'Restaurant', 'setting.png', 'setting1465696288-big.png', 504470, '/upload/restaurants/setting1465696288-big.png', 'Big', 1, '2016-06-12 01:51:28'),
+(62, 4, 'Restaurant', 'download.jpg', 'download1465696288-small.jpg', 10708, '/upload/restaurants/download1465696288-small.jpg', 'Small', 0, '2016-06-12 01:51:28'),
+(63, 4, 'Restaurant', 'download (1).jpg', 'download (1)1465696288-small.jpg', 7008, '/upload/restaurants/download (1)1465696288-small.jpg', 'Small', 0, '2016-06-12 01:51:28'),
+(64, 4, 'Restaurant', 'index.jpeg', 'index1465696288-small.jpeg', 4332, '/upload/restaurants/index1465696288-small.jpeg', 'Small', 0, '2016-06-12 01:51:28'),
+(65, 4, 'Restaurant', 'screenshot2.png', 'screenshot21465696288-small.png', 95084, '/upload/restaurants/screenshot21465696288-small.png', 'Small', 0, '2016-06-12 01:51:28'),
+(66, 4, 'Restaurant', 'setting.png', 'setting1465696288-small.png', 504470, '/upload/restaurants/setting1465696288-small.png', 'Small', 0, '2016-06-12 01:51:28'),
+(67, 1, 'Services', '3.jpg', '31465698000-big.jpg', 273710, '/upload/services/31465698000-big.jpg', 'Big', 1, '2016-06-12 02:20:00'),
+(68, 1, 'Services', 'download.jpg', 'download1465698000-big.jpg', 10708, '/upload/services/download1465698000-big.jpg', 'Big', 1, '2016-06-12 02:20:00'),
+(69, 1, 'Services', 'download (1).jpg', 'download (1)1465698000-big.jpg', 7008, '/upload/services/download (1)1465698000-big.jpg', 'Big', 1, '2016-06-12 02:20:00'),
+(70, 1, 'Services', 'index.jpeg', 'index1465698000-big.jpeg', 4332, '/upload/services/index1465698000-big.jpeg', 'Big', 1, '2016-06-12 02:20:00'),
+(71, 1, 'Services', 'screenshot2.png', 'screenshot21465698000-big.png', 95084, '/upload/services/screenshot21465698000-big.png', 'Big', 1, '2016-06-12 02:20:00'),
+(72, 1, 'Services', 'setting.png', 'setting1465698000-big.png', 504470, '/upload/services/setting1465698000-big.png', 'Big', 1, '2016-06-12 02:20:00'),
+(73, 1, 'Services', 'download.jpg', 'download1465698000-small.jpg', 10708, '/upload/services/download1465698000-small.jpg', 'Small', 0, '2016-06-12 02:20:00'),
+(74, 1, 'Services', 'download (1).jpg', 'download (1)1465698000-small.jpg', 7008, '/upload/services/download (1)1465698000-small.jpg', 'Small', 0, '2016-06-12 02:20:00'),
+(75, 1, 'Services', 'index.jpeg', 'index1465698000-small.jpeg', 4332, '/upload/services/index1465698000-small.jpeg', 'Small', 0, '2016-06-12 02:20:00'),
+(76, 1, 'Services', 'screenshot2.png', 'screenshot21465698000-small.png', 95084, '/upload/services/screenshot21465698000-small.png', 'Small', 0, '2016-06-12 02:20:00'),
+(77, 1, 'Services', 'setting.png', 'setting1465698000-small.png', 504470, '/upload/services/setting1465698000-small.png', 'Small', 0, '2016-06-12 02:20:00'),
+(78, 3, 'SiteSeen', '3.jpg', '31465698480-big.jpg', 273710, '/upload/site-seen/31465698480-big.jpg', 'Big', 1, '2016-06-12 02:28:00'),
+(79, 3, 'SiteSeen', 'download.jpg', 'download1465698480-big.jpg', 10708, '/upload/site-seen/download1465698480-big.jpg', 'Big', 1, '2016-06-12 02:28:00'),
+(80, 3, 'SiteSeen', 'download (1).jpg', 'download (1)1465698480-big.jpg', 7008, '/upload/site-seen/download (1)1465698480-big.jpg', 'Big', 1, '2016-06-12 02:28:00'),
+(81, 3, 'SiteSeen', 'index.jpeg', 'index1465698480-big.jpeg', 4332, '/upload/site-seen/index1465698480-big.jpeg', 'Big', 1, '2016-06-12 02:28:00'),
+(82, 3, 'SiteSeen', 'screenshot2.png', 'screenshot21465698480-big.png', 95084, '/upload/site-seen/screenshot21465698480-big.png', 'Big', 1, '2016-06-12 02:28:00'),
+(83, 3, 'SiteSeen', 'setting.png', 'setting1465698480-big.png', 504470, '/upload/site-seen/setting1465698480-big.png', 'Big', 1, '2016-06-12 02:28:00'),
+(84, 3, 'SiteSeen', '3.jpg', '31465698480-small.jpg', 273710, '/upload/site-seen/31465698480-small.jpg', 'Small', 0, '2016-06-12 02:28:00'),
+(85, 3, 'SiteSeen', 'download.jpg', 'download1465698480-small.jpg', 10708, '/upload/site-seen/download1465698480-small.jpg', 'Small', 0, '2016-06-12 02:28:00'),
+(86, 3, 'SiteSeen', 'download (1).jpg', 'download (1)1465698480-small.jpg', 7008, '/upload/site-seen/download (1)1465698480-small.jpg', 'Small', 0, '2016-06-12 02:28:00'),
+(87, 3, 'SiteSeen', 'index.jpeg', 'index1465698480-small.jpeg', 4332, '/upload/site-seen/index1465698480-small.jpeg', 'Small', 0, '2016-06-12 02:28:00'),
+(88, 3, 'SiteSeen', 'screenshot2.png', 'screenshot21465698480-small.png', 95084, '/upload/site-seen/screenshot21465698480-small.png', 'Small', 0, '2016-06-12 02:28:00'),
+(89, 3, 'SiteSeen', 'setting.png', 'setting1465698480-small.png', 504470, '/upload/site-seen/setting1465698480-small.png', 'Small', 0, '2016-06-12 02:28:00'),
+(90, 4, 'SiteSeen', 'download.jpg', 'download1465703166-big.jpg', 10708, '/upload/site-seen/download1465703166-big.jpg', 'Big', 1, '2016-06-12 03:46:06'),
+(91, 4, 'SiteSeen', 'download (1).jpg', 'download (1)1465703166-big.jpg', 7008, '/upload/site-seen/download (1)1465703166-big.jpg', 'Big', 1, '2016-06-12 03:46:06'),
+(92, 4, 'SiteSeen', 'index.jpeg', 'index1465703166-big.jpeg', 4332, '/upload/site-seen/index1465703166-big.jpeg', 'Big', 1, '2016-06-12 03:46:06'),
+(93, 4, 'SiteSeen', 'screenshot2.png', 'screenshot21465703166-big.png', 95084, '/upload/site-seen/screenshot21465703166-big.png', 'Big', 1, '2016-06-12 03:46:06'),
+(94, 4, 'SiteSeen', 'setting.png', 'setting1465703166-big.png', 504470, '/upload/site-seen/setting1465703166-big.png', 'Big', 1, '2016-06-12 03:46:06'),
+(95, 4, 'SiteSeen', '3.jpg', '31465703166-small.jpg', 273710, '/upload/site-seen/31465703166-small.jpg', 'Small', 0, '2016-06-12 03:46:06'),
+(96, 4, 'SiteSeen', 'download.jpg', 'download1465703166-small.jpg', 10708, '/upload/site-seen/download1465703166-small.jpg', 'Small', 0, '2016-06-12 03:46:06'),
+(97, 4, 'SiteSeen', 'download (1).jpg', 'download (1)1465703166-small.jpg', 7008, '/upload/site-seen/download (1)1465703166-small.jpg', 'Small', 0, '2016-06-12 03:46:06'),
+(98, 4, 'SiteSeen', 'index.jpeg', 'index1465703166-small.jpeg', 4332, '/upload/site-seen/index1465703166-small.jpeg', 'Small', 0, '2016-06-12 03:46:06'),
+(99, 4, 'SiteSeen', 'screenshot2.png', 'screenshot21465703166-small.png', 95084, '/upload/site-seen/screenshot21465703166-small.png', 'Small', 0, '2016-06-12 03:46:06'),
+(100, 4, 'SiteSeen', 'setting.png', 'setting1465703166-small.png', 504470, '/upload/site-seen/setting1465703166-small.png', 'Small', 0, '2016-06-12 03:46:06'),
+(101, 4, 'SiteSeen', '3.jpg', '31465703191-big.jpg', 273710, '/upload/site-seen/31465703191-big.jpg', 'Big', 1, '2016-06-12 03:46:31'),
+(102, 4, 'SiteSeen', 'download.jpg', 'download1465703191-big.jpg', 10708, '/upload/site-seen/download1465703191-big.jpg', 'Big', 1, '2016-06-12 03:46:31'),
+(103, 4, 'SiteSeen', 'download (1).jpg', 'download (1)1465703191-big.jpg', 7008, '/upload/site-seen/download (1)1465703191-big.jpg', 'Big', 1, '2016-06-12 03:46:31'),
+(104, 4, 'SiteSeen', 'index.jpeg', 'index1465703191-big.jpeg', 4332, '/upload/site-seen/index1465703191-big.jpeg', 'Big', 1, '2016-06-12 03:46:31'),
+(105, 4, 'SiteSeen', 'screenshot2.png', 'screenshot21465703191-big.png', 95084, '/upload/site-seen/screenshot21465703191-big.png', 'Big', 1, '2016-06-12 03:46:31'),
+(106, 4, 'SiteSeen', 'setting.png', 'setting1465703191-big.png', 504470, '/upload/site-seen/setting1465703191-big.png', 'Big', 1, '2016-06-12 03:46:31'),
+(107, 5, 'SiteSeen', '3.jpg', '31465704011-big.jpg', 273710, '/upload/site-seen/31465704011-big.jpg', 'Big', 1, '2016-06-12 04:00:11'),
+(108, 5, 'SiteSeen', 'download.jpg', 'download1465704011-big.jpg', 10708, '/upload/site-seen/download1465704011-big.jpg', 'Big', 1, '2016-06-12 04:00:11'),
+(109, 5, 'SiteSeen', 'download (1).jpg', 'download (1)1465704011-big.jpg', 7008, '/upload/site-seen/download (1)1465704011-big.jpg', 'Big', 1, '2016-06-12 04:00:11'),
+(110, 5, 'SiteSeen', 'index.jpeg', 'index1465704011-big.jpeg', 4332, '/upload/site-seen/index1465704011-big.jpeg', 'Big', 1, '2016-06-12 04:00:11'),
+(111, 5, 'SiteSeen', 'screenshot2.png', 'screenshot21465704011-big.png', 95084, '/upload/site-seen/screenshot21465704011-big.png', 'Big', 1, '2016-06-12 04:00:11'),
+(112, 5, 'SiteSeen', 'setting.png', 'setting1465704011-big.png', 504470, '/upload/site-seen/setting1465704011-big.png', 'Big', 1, '2016-06-12 04:00:11'),
+(113, 5, 'SiteSeen', 'index.jpeg', 'index1465704011-small.jpeg', 4332, '/upload/site-seen/index1465704011-small.jpeg', 'Small', 0, '2016-06-12 04:00:11'),
+(114, 5, 'SiteSeen', 'screenshot2.png', 'screenshot21465704011-small.png', 95084, '/upload/site-seen/screenshot21465704011-small.png', 'Small', 0, '2016-06-12 04:00:11'),
+(115, 5, 'SiteSeen', 'setting.png', 'setting1465704011-small.png', 504470, '/upload/site-seen/setting1465704011-small.png', 'Small', 0, '2016-06-12 04:00:11');
 
 -- --------------------------------------------------------
 
@@ -724,7 +837,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `name`, `mobile_no`, `day_description`, `type`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'nTq8nI-MFQmZahBimlNOC2I_4DugYCEK', '$2y$13$4eoYQIlXkPjrn7GSv3Ueue4IfOI0ZldcX4.EA.auiM7SIKxyok4ba', NULL, 'jitendra.kumar@girnarsoft.com', 10, '0', '0', '0', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (2, 'test', 'lihqJQ9OjBjDb757GQ77bjWc8J-OH8Az', '$2y$13$G6pAtXwwsrcIPUACx41V6eTGqonu0SrYvqauA./kMoN9TsJwxb3/u', 'qexg-abrHUVxYA92xV_H8mDKauFsLh-5_1424243975', 'test@girnarsoft.com', 10, '0', '0', '0', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(9, 'R00001', 'KVoa1mhRl8tmb4rjqocbAjIrK7f9UNBT', '$2y$13$qFNzOEbTJOOS7pDmyR1GC.Bzko5XmkLVLxOL7maEK1N6mxqShViyu', NULL, 'test@test.com', 10, 'test', '9871942912', '{"day1":"sdfmnvmfndsfv","day2":"nvsdmnvmvsn","day3":"vmndvm","day4":"vsmsdnvc","day5":"vmnvx","day6":"mnxvmsx","day7":"vsmnvmzx","day8":"vxcvbxcn","day9":"mnvmnxvbmn","day10":"vmncxvmnc"}', 'customer', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 'R00001', 'SIhwgmhIAgWMNbdzZeNITwbZ-xuMsc8x', '$2y$13$qFNzOEbTJOOS7pDmyR1GC.Bzko5XmkLVLxOL7maEK1N6mxqShViyu', NULL, 'test@test.com', 10, 'test', '9871942912', '{"day1":"sdfmnvmfndsfv","day2":"nvsdmnvmvsn","day3":"vmndvm","day4":"vsmsdnvc","day5":"vmnvx","day6":"mnxvmsx","day7":"vsmnvmzx","day8":"vxcvbxcn","day9":"mnvmnxvbmn","day10":"vmncxvmnc"}', 'customer', '0000-00-00 00:00:00', '2016-06-12 04:11:47'),
 (10, 'manager', 'sbmFtdYM3amWGh5guLv3FPxS-HySB_3D', '$2y$13$P.Xk81bWgfkqFhB0gpfZw.lzHp9ooYrGHFJVBeAYF9LZQUZN9mKBm', NULL, 'manager@vyom.com', 10, '', '', '', '', '2016-06-07 07:05:12', '2016-06-07 07:05:12');
 
 --
