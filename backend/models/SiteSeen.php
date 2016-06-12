@@ -105,19 +105,21 @@ class SiteSeen extends \yii\db\ActiveRecord
     }
     
     
+    
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getImages() {
+        $imagePath = \common\models\SiteConfig::getConfigVal('_Image_WebSite_Path');
         return $this->hasMany(UploadedFile::className(), ['reference_id' => 'id'])
-                        ->andOnCondition(['reference_type' => 'SiteSeen'])->select(['type','filename','path']);
+                        ->andOnCondition(['reference_type' => 'SiteSeen'])->select(['type','filename',"concat('".$imagePath."' , `uploaded_file`.`path`) as 'path'"]);
     }
     
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getActivities() {
-        return $this->hasMany(Activities::className(), ['site_seen_id' => 'id']);
+        return $this->hasMany(Activities::className(), ['site_seen_id' => 'id'])->select(['id','name','valid_from','valid_to','retail_price','discounted_price']);
     }
 
     public function extraFields() {

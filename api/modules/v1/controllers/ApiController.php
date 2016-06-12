@@ -12,6 +12,8 @@ use yii\data\ActiveDataProvider;
 class ApiController extends ActiveController
 {
     
+    public $searchInArray = ['type','city_id'];
+    
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -30,13 +32,19 @@ class ApiController extends ActiveController
     
     public function actionSearch() {
         $getData = $_GET;
-        if(isset($getData) && !empty($getData) && isset($getData['access-token']))
-            unset ($getData['access-token']);
+        if(isset($getData) && !empty($getData) ){
+            if(isset($getData['access-token']))
+                unset ($getData['access-token']);
+            if(isset($getData['_format']))
+                unset ($getData['_format']);
+
+        }    
         
         if (!empty($getData)) {
             $model = new $this->modelClass;
             foreach ($getData as $key => $value) {
-                if (!$model->hasAttribute($key)) {
+                
+                if (!$model->hasAttribute($key) || !in_array($key, $this->searchInArray)) {
                     throw new \yii\web\HttpException(404, 'Invalid attribute:' . $key);
                 }
             }
@@ -58,6 +66,5 @@ class ApiController extends ActiveController
             throw new \yii\web\HttpException(400, 'There are no parameters to find');
         }
     }
-
     
 }

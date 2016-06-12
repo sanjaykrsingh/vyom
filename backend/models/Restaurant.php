@@ -104,8 +104,9 @@ class Restaurant extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getImages() {
+        $imagePath = \common\models\SiteConfig::getConfigVal('_Image_WebSite_Path');
         return $this->hasMany(UploadedFile::className(), ['reference_id' => 'id'])
-                        ->andOnCondition(['reference_type' => 'Restaurant'])->select(['type','filename','path']);
+                        ->andOnCondition(['reference_type' => 'Restaurant'])->select(['type','filename',"concat('".$imagePath."' , `uploaded_file`.`path`) as 'path'"]);
     }
 
     public function extraFields() {

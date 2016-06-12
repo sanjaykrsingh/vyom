@@ -48,35 +48,40 @@ return [
                  ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'v1/city'
+                    'controller' => 'v1/city',
+                    'only' => ['index','view']
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'v1/itinerary'
+                    'controller' => 'v1/itinerary',
+                    'only' => ['index','view']
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
                     'controller' => 'v1/restaurant',
-                    'extraPatterns' => ['GET search' => 'search']
+                    'extraPatterns' => ['GET search' => 'search'],
+                    'only' => ['index','view','search']
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
                     'controller' => 'v1/services',
-                    'extraPatterns' => ['GET search' => 'search']
+                    'extraPatterns' => ['GET search' => 'search'],
+                    'only' => ['index','view','search']
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
                     'controller' => 'v1/seen',
-                    'extraPatterns' => ['GET search' => 'search']
+                    'extraPatterns' => ['GET search' => 'search'],
+                    'only' => ['index','view','search']
                 ] ,
+                'GET,HEAD v1/itineraries/<id:[A-Za-z0-9_-]+>' => 'v1/itinerary/view', 
                 
             ],        
         ],
         'request' => [
            'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
-                'application/xml' => 'yii\web\JsonParser',
-        ]
+         ]
 ]
     ],
     'params' => $params,
