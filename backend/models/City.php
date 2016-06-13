@@ -70,7 +70,7 @@ class City extends \yii\db\ActiveRecord {
     }
 
     public function fields() {
-        return ['id','name', 'code', 'description','latitude','longitude','images'];
+        return ['id','name', 'code'];
     }
 
 }

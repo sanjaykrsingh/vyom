@@ -97,7 +97,7 @@ class Services extends \yii\db\ActiveRecord
      */
     public function getCities()
     {
-        return $this->hasOne(City::className(), ['id' => 'city_id']);
+        return $this->hasOne(City::className(), ['id' => 'city_id'])->select(['id','name','code']);
     }
     
     
